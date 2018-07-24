@@ -1,0 +1,519 @@
+*{
+  padding: 0px;
+  margin: 0px;
+  font-size: 0.25rem;
+}
+/*修改提示文字的颜色*/
+
+input::-webkit-input-placeholder { /* WebKit browsers */ 
+
+color: #dcdcdc; 
+
+} 
+
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+
+color: #dcdcdc; 
+
+} 
+
+input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+
+color:#dcdcdc; 
+
+} 
+
+input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+
+color: #dcdcdc; 
+
+} 
+.main{
+  margin-bottom: 40px;
+}
+ .top_title{
+  position: relative;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  background: #fff;
+}
+.top_title .esc_icon{
+  position: absolute;
+  top:12px;
+  left: 20px;
+  width: 16px;
+  height: 16px;
+}
+.top_title  h2.title{
+  font-size: 18px;
+}
+.main .pro_img{
+  height: 180px;
+  background: #e5e5e5;
+}
+.main .pro_img img{
+  width: 100%;
+  height: 180px;
+
+}
+
+.content{
+  padding-top: 20px;
+  background: #f4f4f4;
+}
+.content .con_title{
+  height: 40px;
+  line-height: 40px;
+  padding-left: 30px;
+  display: flex;
+  border-bottom: 1px solid #dcdcdc;
+  background: #fff;
+  align-items: center;
+}
+.content .con_title .mainIcon{
+  width: 22px;
+  height: 20px;
+  padding-right: 10px;
+}
+
+.content .con_wrapper{background: #fff;}
+.content .con_wrapper .con_ticket{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-bottom: 1px solid #dcdcdc;
+}
+ .con_wrapper .con_ticket .con_left h4{
+  line-height: 30px;
+}
+.con_wrapper .con_ticket .con_left h4 b,
+.fontc{
+  color: #8BC34A
+}
+
+.con_wrapper .con_ticket .con_left p{
+  line-height: 30px;
+  color: #999;
+}
+.con_wrapper .con_ticket .con_right{
+  margin-right: 20px;
+
+}
+.con_wrapper .con_ticket .con_right a{
+  display: inline-block;
+  height: 35px;
+  line-height: 35px;
+  width: 100px;
+  text-align: center;
+  background: url("../images/bgg.png");/*#8BC34A;*/
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+  top: 15px;
+  border-radius: 5px;
+}
+.con_wrapper .con_tip{
+  padding:40px 0px;
+  background: #f4f4f4;
+  text-align: center;
+  color: #999;
+}
+/*预订界面*/
+.ticket-wrapper {
+  border-top: 1px solid #dcdcdc;
+  background:#fff;
+}
+.ticket-wrapper .ticket_title{
+    font-size: 16px;
+    color: #fff;
+    background: url(../images/ticketIcon.png) no-repeat;
+    width: 116px;
+    height: 60px;
+    line-height: 58px;
+    text-align: center;
+    margin: 10px 20px;
+}
+.ticket_con .ticket_info{
+    display: flex;
+    position: relative;
+    border-bottom: 1px solid #dcdcdc;
+    padding:0 20px 20px;
+    margin-bottom: 20px;
+
+}
+.ticket_con .ticket_info3
+{ 
+    display: flex;
+    position: relative;
+    padding: 0 20px 0px;
+}
+.ticket_con .ticket_info3 .ticket_num{
+  width: 100%
+}
+.ticket_con .ticket_info .ticket_no{
+  font-weight: 400;
+}
+.ticket_con .ticket_info .ticket_num{
+  width:100%
+}
+.ticket_con .ticket_info .ticket_num div.ticket_info_num{
+  padding:5px 0 10px;
+  color: #8BC34A;
+}
+.ticket_con .ticket_info .ticket_num div.ticket_tip{
+  color: #d3d3d3;
+  padding-top: 10px;
+}
+.ticket_con .selectNum{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    display: flex;
+}
+.ticket_con .selectNum .selectbtn{
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 18px;
+  border:1px solid #dcdcdc;
+  border-radius: 5px;
+}
+.ticket_con .selectNum .inputNum{
+  width: 80px;
+  height: 30px;
+  border:1px solid #dcdcdc;
+  border-radius: 5px;
+  margin: 0 5px;
+  text-align: center;
+}
+.exh_infor .exh_infor_title{
+  padding-bottom:10px;
+}
+.exh_infor .exh_input{
+  height: 30px;
+  padding: 5px 10px;
+  width: 85%;
+  border: 1px solid #dcdcdc;
+  margin-top: 10px;
+  font-size: 14px;
+  margin-left:20px; 
+}
+.exh_infor .infor_input{
+  position: relative;
+}
+.p_tip{
+  padding-left: 20px;
+  padding-top: 10px;
+  color: #f5bdbd;
+}
+.exh_infor .required_icon{
+  position: absolute;
+  top: 11px;
+  color: #e51c23;
+  font-size: 20px;
+  font-weight: 400;
+  display: block;
+  height: 40px;
+  vertical-align: middle;
+  line-height: 40px;
+  width: 20px;
+    
+}
+.ticket_num .order{
+  display: flex;
+  justify-content: space-between;
+}
+.ticket_num .order .order_num{
+  color: #8BC34A;
+  padding-top:5px;
+}
+
+.ticket_num .ordertip{
+  color: #d3d3d3;
+  padding-top: 10px;
+}
+.total{
+  margin-top:20px; 
+}
+.total .tip{
+  color: #d3d3d3;
+}
+.total .total_price{
+    margin: 20px 0px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.total .total_price .total_title{
+   color: #d3d3d3;
+}
+.total .total_price .b_price{
+  color: #fc0404;
+  font-size:18px;
+}
+.order_btn .btn_submit{
+  background: url("../images/bgg.png");
+  text-align: center;
+  color: #fff;
+  height: 40px;
+  line-height: 40px;
+  margin: 0 20px;
+}
+
+.tip-wrapper{
+  margin: 20px 20px;
+  border: 1px solid #dcdcdc;
+
+}
+.tip-wrapper .tip_title{
+  padding: 10px;
+  margin: 10px 0px;
+  font-size: 15px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+.tip-wrapper .tip_infor{
+  margin: 20px 0 30px;
+}
+.tip-wrapper .tip_infor p{
+  line-height: 25px;
+  padding:0 20px;
+  color: #d3d3d3
+}
+
+/*order*/
+.orderContent{
+  margin-bottom: 50px;
+  /* height: 100%; */
+}
+.no_order{
+  position: fixed;
+  text-align: center;
+  padding-top: 20%;
+  height: 100%;
+  width: 100%;
+  background: #f4f4f4;
+}
+.u-arrow {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border-top: 3px solid #010101;
+    border-right: 3px solid #010101;
+    position: absolute;
+    left: 20px;
+    top: 14px;
+}
+.u-arrow-left {
+  transform: rotate(-135deg);
+}
+.no_order_text{
+  line-height: 25px;
+}
+.no_order_text .no_text_div{
+  color: #a3a3a3;
+  margin-bottom: 10px;
+
+}
+.no_order_text a.no_text_a{
+  color: #67890a;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.order-wrapper{
+
+}
+.order-wrapper .order_top{
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    align-items: center;
+    padding:0px 20px;
+    border-top:1px solid #dcdcdc;
+    border-bottom:1px solid #dcdcdc;
+}
+ .order_top .order_top_text{
+ width:28%;
+ display: flex;
+ align-items: center;
+}
+ .order_top .order_top_text .jtIcon{
+  width: 10px;
+  height: 20px;
+  padding-left: 5px;
+ }
+ .order_top .order_top_time{
+   display: flex;
+   width:60%;
+   align-items: center;
+}
+ .order_top .order_top_time .selectTime{
+  width: 45%;
+  height: 20px;
+}
+ .order_top .order_top_time .input_span{
+ display: inline-block;
+ width: 10%;
+ text-align: center;
+ }
+ .order_con .order_con_list{
+  padding: 10px 20px;
+  border-bottom:1px solid #dcdcdc;
+  
+ }
+ .order_con .order_con_list a{
+  display: block;
+  text-decoration: none;
+  color: #000;
+ }
+  .order_con .order_con_list .orderListTitle{
+  height: 30px;
+  line-height: 30px;
+ }
+ .order_con .order_con_list .orderType,
+ .order_con_list .order_tip_total{
+  display: flex;
+  justify-content: space-between;
+  height: 30px;
+  line-height: 30px;
+ }
+.order_con .order_con_list .orderType .orderType_text{
+  display: flex;
+  align-items: center;
+}
+.order_con_list .orderType .orderType_text .typeIcon{
+  width: 30px;
+  margin-right: 10px; 
+}
+
+ .order_con_list .order_tip_total .order_tip{
+  color:#999;
+  margin-left: 40px;
+ }
+.order_con_list .order_tip_total .order_total .money_logo{
+  color: #999;
+  font-size: 18px;
+
+}
+
+.order_tip_total .order_total b{
+  color: #e51c23;
+  font-size:18px;
+}
+.order_footer{
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  border-top: 1px solid #dcdcdc;
+  
+}
+.order_footer .order_footer_btn{
+  display: flex; 
+  background: #fff; 
+}
+.order_footer .order_footer_btn a{
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  text-decoration: none;
+  color: #333
+}
+.order_footer .order_footer_btn a.lxkf{
+  background: url("../images/bgg.png");
+  color: #fff;
+}
+.order_con_list  .order_voucher{
+  padding-top:10px;
+  text-align: right;
+}
+.order_voucher_btn{
+  border: 1px solid #dcdcdc;
+  display: inline-block;
+  width: 80px;
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+}
+.orderDetail {
+  
+}
+.orderDetail .detail_top{
+  background: #fff;
+  border-top: 1px solid #dcdcdc;
+  border-bottom: 1px solid #dcdcdc;
+  padding:20px;
+}
+.orderDetail .detail_tip_price{
+  display: flex;
+  justify-content: space-between;
+  padding-top:20px;
+}
+.detail_tip_price .detail_type{
+  display: flex;
+  align-items: center;
+
+}
+.detail_tip_price .detail_type .typeIcon{
+  width: 25px;
+  height: 25px;
+  padding-right: 5px;
+}
+.detail_top .detail_totol{
+  display: flex;
+  justify-content: space-between;
+}
+.detail_top .detail_totol .detail_tip{
+  color: #999;
+  padding-left: 30px;
+}
+.detail_top .detail_totol .totalPrice{
+  color: #999;
+}
+.detail_top .detail_totol .totalPrice b{
+  color:#e51c23;
+}
+.detail_userInfor{
+  margin-top:20px; 
+  background: #fff;
+  border-top: 1px solid #dcdcdc;
+}
+.detail_userInfor .userInfor{
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #dcdcdc;
+  padding:0 20px;
+}
+.userInfor span{
+  display: inline-block;
+}
+.userInfor span.usertext{
+  color: #999;
+  width: 20%;
+}
+/*二维码*/
+#qrcode{
+  margin: 20px auto;
+}
+#qrcode img{
+  margin:0 auto;
+}
+/*二维码 end*/
+.detail_footer{
+  margin: 20px;
+}
+.detail_footer .noTest{
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: #fff;
+  background: url("../images/bgg.png");
+}
+
+
+/*order end*/

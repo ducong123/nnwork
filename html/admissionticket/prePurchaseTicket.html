@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="author" content="m.178hui.com" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="format-detection" content="telephone=no">
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/media.css"/>
+  <style type="text/css">
+    body{
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="pre_ticket" id="app2">
+    <div class="top_title">
+      <i class="u-arrow u-arrow-left" @click="history.go(-1)"></i>
+      <h2 class="title">门票预订</h2>
+    </div>
+    <div class="ticket-wrapper">
+      <div class="ticket_title">
+        <img src="images/ticketIcon.png"/>
+        <span class="ticketSpan">{{ticketName}}</span>
+      </div>
+      <div class="ticket_con">
+        <div class="ticket_info">
+          <div class="ticket_no">1、</div>
+          <div class="ticket_num">
+            <div class="infotitle"><b>选择门票数量</b></div>
+            <div class="ticket_info_num">
+              {{ticketName}}&nbsp;({{ticketPrice}}元)
+            </div>
+            <div class="ticket_tip">
+              (注：{{ticketTip}})
+            </div>
+            <div class="selectNum">
+              <b @click="reduceNum" class="selectbtn reduceNum">-</b>
+              <input name="" v-model="titckNum" class="inputNum"/> 
+               
+              <b @click="addNum" class="selectbtn addNum">+</b>
+            </div>
+          </div>
+
+        </div>
+        
+        <div class="ticket_info">
+          <div class="ticket_no">2、</div>
+          <div class="ticket_num">
+            <div class="infotitle"><b>输入参展人信息</b></div>
+            <div class="exh_infor" >
+              <div class="infor_input" v-for="exhIfor in inforList">
+                <span class="required_icon" v-if="exhIfor.Required == 0">*</span>
+                <input class="exh_input" :placeholder="exhIfor.title" v-model="exhIfor.value" v-bind:ref="exhIfor.name"/>
+                
+                <p class="p_tip" v-if="exhIfor.tip != null">{{exhIfor.tip}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="ticket_info">
+          <div class="ticket_no">3、</div>
+          <div class="ticket_num">
+            <div class="infotitle"><b>确认订单</b></div>
+            <div class="order">
+              <div class="order_num">{{tickType}}×{{titckNum}}</div>
+              <div class="order_price">
+                {{titckNum*ticketPrice}}元
+              </div>
+            </div>
+            <div class="ordertip">门票一经确认不可退票</div>
+            <div class="total">
+              <div class="tip">点击下方"付款"按钮，即表示您同意条款申明</div>
+              <div class="total_price">
+                <span class="total_title">总计:&nbsp;</span>
+                <span class="b_price"><span>￥</span>{{titckNum*ticketPrice}}元</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="order_btn">
+                <div class="btn_submit" @click="payPrice">付 款</div>
+            </div>
+		
+        
+      </div>
+    </div>
+    <div class="tip-wrapper">
+      <div class="tip_title">请阅读并知悉三昧财行展会注意事项</div>
+      <div class="tip_infor">
+        <p>1、无票、无证人员不得进入展览区域</p>
+        <p>2、不得将展会展示样品带出展厅外</p>
+        <p>3、不得损坏展厅内任意物件，包括但不限于参展样品，产品介绍载体（纸张、二维码、电子设备等）、
+          固定物件（桌子，椅子等），否则，三昧财行有权要求按照原价赔偿。</p>
+        <p>4、禁止违规携带易燃易爆、有毒等危险物品进入展区。</p>
+        <p>5、展区内严禁吸烟，违者对其处于人民币50元的罚款。</p>
+        <p>6、以上条款如有违者将依照相关规定给予处罚，或取消其参展资格。</p>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="js/vue.min.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/base.js"></script>
+<script>
+
+  new Vue({
+    el:'#app2',
+    data(){
+      return {
+      value:'',//传入id值
+      ticketName:'',//门票类型
+      ticketPrice:'',//门票价格
+      ticketTip:'',//提示。
+      inforList:[],//参展人信息
+      titckNum:'1',//购买数量，selected选择的内容
+      tickType:"",
+      total:""
+
+      }
+    },
+    created(){
+       var v = parseUrl();//解析所有参数
+       //alert(v['id']);//就是你要的结果
+       this.value = v['id']
+
+       this.ticketCon();
+    },
+    methods:{
+      ticketCon(){
+        var values = this.value
+        console.log(this.value)
+        if(values === "1"){
+          this.ticketPrice = "30"
+          this.ticketName = "一日票"
+          this.ticketTip = "一张票仅限一人一日进入"
+          this.inforList = [
+            {id:1,Required:0,title:"请输入您的姓名",value:"" ,name:"username"},//Required:0代表必填项Required:1非必填项
+            {id:2,Required:1,title:"请输入您的所属企业",value:"",name:"enterprise"},
+            {id:3,Required:0,title:"请输入您的手机号",value:"",name:"phone"}
+          ]
+          this.tickType ="展会一日票"
+        }else if(values === "2") {
+          this.ticketPrice = "70"
+          this.ticketName = "团体票"
+          this.ticketTip = "一张票仅限同一企业三人进入"
+          this.inforList = [
+            {id:1,Required:0,title:"请输入您企业名称",value:"",name:""},
+            {id:2,Required:0,title:"请输入您的联系人姓名",value:"",name:""},
+            {id:3,Required:0,title:"请输入您的手机号",value:"",name:""}
+          ]
+          this.tickType ="展会团体票"
+        }else if(values === "3"){
+          this.ticketPrice = "360"
+          this.ticketName = "通票"
+          this.ticketTip = "一张票仅限同一人展销期内进入"
+          this.inforList = [
+            {id:1,Required:0,title:"请输入您的姓名",value:"" ,name:"username"},
+            {id:1,Required:1,title:"请输入您的所属企业",value:"" ,name:"username"},
+            {id:1,Required:0,title:"请输入您的身份证号码",value:"" ,name:"provinceNum",tip:"请输入正确的身份信息，此身份信息将作为展会入展凭证"},
+            {id:1,Required:0,title:"请输入您的手机号",value:"" ,name:"mobile"},
+          ]
+          this.tickType ="展会通票"
+        }
+        this.total = this.ticketPrice*this.titckNum
+
+      },
+      reduceNum(){
+        if(this.titckNum>1){
+          this.titckNum--
+          //console.log(num)
+        }else{
+          alert("亲最少一张哦！")
+        }
+        
+      },
+      addNum(){
+        
+        this.titckNum++
+      },
+      payPrice(){
+        var a=[]
+        for(var i = 0;i<this.inforList.length;i++){
+          a.push(this.inforList[i].value)
+        }
+         
+
+      }
+    /*  payRes(){
+        axios({
+          method: 'get',
+        //   url: 'https://api.mch.weixin.qq.com/pay/unifiedorderttps://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#we-chat_redirect',
+          data:{
+
+          }
+        })
+        .then(function(res){
+          console.log("res:",res)
+        })
+      }*/
+    }
+
+  })
+</script>
+</html>

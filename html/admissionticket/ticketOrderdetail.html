@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="author" content="m.178hui.com" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="format-detection" content="telephone=yes">
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/media.css"/>
+  <style type="text/css">
+    body{
+      background: #f4f4f4;
+    }
+  </style>
+</head>
+<body>
+  <div class="order" id="order">
+    <div class="top_title">
+      <i class="u-arrow u-arrow-left" @click="history.go(-1)"></i>
+      <h2 class="title">订单详情</h2>
+    </div>
+    <div class="orderDetail">
+      <div class="detail_top">
+        <div class="detail_orderNum">订单号：{{orderList[ordersub].orderNum}}</div>
+      
+        <div class="detail_tip_price">
+          <div class="detail_type">
+            <img v-if="orderId=='1'" class="typeIcon" src="images/yticket.png"/>
+            <img v-if="orderId=='2'" class="typeIcon" src="images/tticket.png"/>
+            <img v-if="orderId=='3'" class="typeIcon" src="images/toticket.png"/>
+            <span>{{orderList[ordersub].ticketName}}</span>
+          </div>
+          <div class="detail_price">
+            {{orderList[ordersub].ticketPrice}}元/张
+            &nbsp;×&nbsp;
+            {{orderList[ordersub].num}}
+          </div>
+         
+        </div>
+         <div class="detail_totol">
+           <div class="detail_tip">{{orderList[ordersub].ticketTip}}</div>
+           <span class="totalPrice">￥<b>{{orderList[ordersub].total}}</b></span>
+         </div>
+      </div>
+      <div class="detail_userInfor">
+          <div class="userInfor">
+            <span class="usertext">姓名</span>
+            <span class="usercont">马宇飞</span>
+          </div>
+          <div class="userInfor">
+            <span class="usertext">所属企业</span>
+            <span class="usercont">耐耐云商科技有限公司</span>
+          </div>
+          <div class="userInfor">
+            <span class="usertext">手机号</span>
+            <span class="usercont">15021365489</span>
+          </div>
+      </div>
+      <div id="qrcode" ref="qrcode"></div>
+      <div class="detail_footer">
+        <div class="noTest">未验核</div>
+        <div class="yesTest">已验核</div>
+        <!-- 展会通票 -->
+        <div class="zhnoTest">未验核</div>
+        <div class="zhyesTest">已验核1次</div>
+        <!-- 展会通票 end-->
+      </div>
+     
+    </div>
+  </div>
+  
+</body>
+<script src="js/vue.min.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/base.js"></script>
+<!--二维码插件qrcode.js-->
+<script type="text/javascript" src="js/qrcode.js"></script> 
+<script>
+  new Vue({
+    el:'#order',
+    data(){
+      return {
+        orderId:'',//类型id
+        ordersub:'',
+        orderList:[
+          {id:1,orderNum:'1646464356',ticketName:"一日票",ticketPrice:"30",num:"3",ticketTip:"一张票仅限一人一日进入",total:"90"},
+          {id:2,orderNum:'4564648496',ticketName:"团体票",ticketPrice:"70",num:"1",ticketTip:"一张票仅限同一企业三人进入",total:"70"},
+          {id:3,orderNum:'4564648496',ticketName:"通票",ticketPrice:"360",num:"1",ticketTip:"一张票仅限同一人展销期内进入",total:"360"}
+        ]
+      }
+    },
+    
+    created(){
+       var v = parseUrl();//解析所有参数
+       //alert(v['id']);//就是你要的结果
+       this.orderId = v['id']
+       this.ordersub = this.orderId -1
+       //this.detailContent()
+    },
+    mounted () {  
+      this.qrcode()  
+    } , 
+
+
+    methods: {  
+      qrcode () {  
+        var qrcode = new QRCode('qrcode', {  
+          width: 200,  
+          height: 200, // 高度  
+         //text: content // 二维码内容  
+          // render: 'canvas' // 设置渲染方式（有两种方式 table和canvas，默认是canvas）  
+          // background: '#f0f'  
+          // foreground: '#ff0'  
+        })  
+        var id = this.ordersub
+        var  content=this.orderList[id].orderNum
+        qrcode.makeCode(content);//传入二维吗内容
+      } ,
+
+      //判断内容
+      
+     
+  },
+
+  })
+
+</script>
+</html>

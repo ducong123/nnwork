@@ -1,0 +1,608 @@
+*{
+  padding: 0px;
+  margin: 0px;
+  font-size: 0.25rem;
+  font-family: "微软雅黑";
+}
+a{
+    text-decoration: none;
+}
+/*修改提示文字的颜色*/
+
+input::-webkit-input-placeholder { /* WebKit browsers */ 
+
+color: #d7d6d6;; 
+
+} 
+
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+
+color: #d7d6d6;; 
+
+} 
+
+input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+
+color:#d7d6d6;; 
+
+} 
+
+input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+
+color: #d7d6d6; 
+
+} 
+.main{
+  padding-bottom: 0.83rem;
+}
+ .top_title{
+  position: relative;
+  height: 0.7rem;
+  line-height: 0.7rem;
+  text-align: center;
+  background: #fff;
+}
+.top_title .esc_icon{
+  position: absolute;
+  top:12px;
+  left: 20px;
+  width: 16px;
+  height: 16px;
+}
+.top_title  h2.title{
+  font-size: 0.29rem;
+}
+.main .pro_img{
+  height: 3rem;
+  background: #e5e5e5;
+}
+.main .pro_img img{
+  width: 100%;
+  height: 3rem;
+}
+
+.content{
+  padding-top: 0.33rem;
+  background: #f4f4f4;
+}
+.content .con_title{
+  height: 0.7rem;
+  line-height: 0.7rem;
+  padding-left: 0.25rem;
+  display: flex;
+  border-bottom: 1px solid #dcdcdc;
+  background: #fff;
+  align-items: center;
+}
+.content .con_title .mainIcon{
+  width: 0.3rem;
+  height: 0.3rem;
+  padding-right: 0.1rem;
+}
+.content .con_title .con_text{
+  font-size:0.22rem;
+  color: #4b4b4b
+}
+
+.content .con_wrapper{background: #fff;}
+.content .con_wrapper .con_ticket{
+    display: flex;
+    justify-content: space-between;
+    padding: 0.15rem 0.33rem;
+    border-bottom: 1px solid #dcdcdc;
+}
+ .con_wrapper .con_ticket .con_left h4{
+  line-height: 0.4rem;
+}
+.con_wrapper .con_ticket .con_left h4 b,
+.fontc{
+  color: #8fc31f;
+  font-size: 0.2rem;
+
+}
+
+.con_wrapper .con_ticket .con_left p{
+  line-height: 0.5rem;
+  color: #999;
+  font-size: 0.2rem;
+}
+.con_wrapper .con_ticket .con_right{
+  margin-right: 0.26rem;
+}
+.con_wrapper .con_ticket .con_right a{
+  display: inline-block;
+  height: 0.56rem;
+  line-height: 0.56rem;
+  width: 1.37rem;
+  text-align: center;
+  background-image: linear-gradient(0deg,    #638206 0%,    #93ca1f 100%),   linear-gradient(   #8fc31f,    #8fc31f);
+  background-blend-mode: normal,    normal;
+  border-radius: 0.1rem;/*#8BC34A;*/
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+  top: 0.2rem;
+  font-size: 0.2rem;
+}
+.con_wrapper .con_tip{
+  padding: 0.57rem 0;
+  background: #f4f4f4;
+  text-align: center;
+  color: #999;
+  
+}
+.con_wrapper .con_tip p{
+  font-size: 0.2rem;
+  color: #c1c1c1;
+}
+/*预订界面*/
+.ticket-wrapper {
+  border-top: 1px solid #dcdcdc;
+  background:#fff;
+}
+.ticket-wrapper .ticket_title{
+    color: #fff;
+    width: 1.8rem;
+    height: 0.65rem;
+    margin: 0.3rem 0.4rem 0;
+    position: relative;
+}
+.ticket-wrapper .ticket_title img{
+    width: 1.8rem;
+    height: 0.65rem;
+    position: absolute;
+    top: 0;
+}
+.ticket-wrapper .ticket_title .ticketSpan{
+  display: inline-block;
+  text-align: center;
+  width: 1.8rem;
+  height: 0.65rem;
+  line-height: 0.49rem;
+  position: relative;
+}
+.ticket_con .ticket_info{
+    display: flex;
+    position: relative;
+    border-bottom: 1px solid #dcdcdc;
+    padding: 0 0.4rem 0.3rem;
+    margin-bottom: 0.3rem;
+}
+
+.ticket_con .ticket_info3 .ticket_num{
+  width: 100%
+}
+.ticket_con .ticket_info .ticket_no{font-size: 0.2rem;}
+.ticket_con .ticket_info .ticket_num{
+  width:100%
+}
+.ticket_con .ticket_info .ticket_num .infotitle b{
+  font-size: 0.2rem;
+}
+.ticket_con .ticket_info .ticket_num div.ticket_info_num{
+  padding: 0.1rem 0 0.35rem;
+  color: #8fc31f;
+}
+.ticket_con .ticket_info .ticket_num div.ticket_tip{
+  color: #ccc;
+  font-size: 0.15rem;
+}
+.ticket_con .selectNum{
+    position: absolute;
+    right: 0.5rem;
+    top: 0.1rem;
+    display: flex;
+}
+.ticket_con .selectNum .selectbtn{
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  line-height: 0.4rem;
+  text-align: center;
+  font-size: 0.3rem;
+  border:1px solid #dcdcdc;
+  border-radius: 0.05rem;
+}
+.ticket_con .selectNum .inputNum{
+  width: 0.9rem;
+  height: 0.4rem;
+  border:1px solid #dcdcdc;
+  border-radius: 0.05rem;
+  margin: 0 0.05rem;
+  text-align: center;
+}
+.exh_infor .exh_infor_title{
+  padding-bottom:10px;
+}
+.exh_infor .exh_input{
+  padding: 0.2rem;
+  width: 85%;
+  border: 1px solid #d2d2d2;
+  margin-top: 0.2rem;
+  font-size: 0.2rem;
+  margin-left: 0.25rem;
+}
+.exh_infor .infor_input{
+  position: relative;
+}
+.p_tip{
+  padding-left: 20px;
+  padding-top: 10px;
+  color: #f5bdbd;
+}
+.exh_infor .required_icon{
+  position: absolute;
+  top: 0.2rem;
+  color: #e91010;
+  font-size: 0.2rem;
+  font-weight: 400;
+  display: block;
+  height: 0.7rem;
+  vertical-align: middle;
+  line-height: 0.7rem;
+  width: 0.15rem;
+}
+.ticket_num .order{
+  display: flex;
+  justify-content: space-between;
+}
+.ticket_num .order .order_num{
+  padding-top: 0.1rem;
+  color: #8fc31f;
+}
+.ticket_num .order .order_price{
+  font-weight: 600
+}
+
+.ticket_num .ordertip{
+  color: #ccc;
+  padding-top: 0.25rem;
+  font-size: 0.15rem;
+}
+.total{
+  margin-top: 0.45rem;
+  display: flex; 
+  justify-content: space-between;
+  align-items: center; 
+}
+.total .tip{
+  color: #ccc;
+  font-size: 0.15rem;
+}
+.total .total_price{
+   /* margin: 20px 0px;*/
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.total .total_price .total_title{
+   color: #ccc;
+   font-size: 0.15rem;
+}
+.total .total_price .b_price{
+  color: #fc0404;
+  font-size: 0.3rem;
+}
+.order_btn .btn_submit{
+  width: 5.4rem;
+  height: 0.65rem;
+  line-height: 0.65rem;
+  background-image: linear-gradient(0deg, 
+    #638206 0%, 
+    #93ca1f 100%), 
+  linear-gradient(
+    #8fc31f, 
+    #8fc31f);
+  background-blend-mode: normal, 
+    normal;
+  border-radius: 0.1rem;
+  
+  margin: 0 auto;
+  text-align: center;
+  color: #fff;
+}
+
+.tip-wrapper{
+  margin: 0.35rem;
+  border: 1px solid #bfbfbf;
+}
+.tip-wrapper .tip_title{
+  padding: 0.3rem;
+  font-size: 0.2rem;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  color: #999;
+}
+.tip-wrapper .tip_infor{
+  margin: 0.2rem 0 0.65rem;
+}
+.tip-wrapper .tip_infor p{
+  line-height: 0.3rem;
+  padding: 0 0.25rem;
+  color: #ccc;
+  font-size: 0.15rem;
+}
+
+/*order*/
+.orderContent{
+  margin-bottom: 0.83rem;
+  /* height: 100%; */
+}
+.no_order{
+  position: fixed;
+  text-align: center;
+  padding-top: 20%;
+  height: 100%;
+  width: 100%;
+  background: #f4f4f4;
+}
+.u-arrow {
+    display: inline-block;
+    width: 0.2rem;
+    height: 0.2rem;
+    border-top: 0.04rem solid #000;
+    border-right: 0.04rem solid #000;
+    position: absolute;
+    left: 0.33rem;
+    top: 0.25rem;
+}
+.u-arrow-left {
+  transform: rotate(-135deg);
+}
+.no_order_text{
+}
+.no_order_text .no_text_div{
+  color: #a8a8a8;
+  margin-bottom: 0.3rem;
+  font-size: 0.2rem;
+}
+.no_order_text a.no_text_a{
+  text-decoration: none;
+  font-size: 0.3rem;
+  color: #7eab14;
+}
+
+.order-wrapper{
+
+}
+.order-wrapper .order_top{
+    display: flex;
+    justify-content: space-between;
+    height: 0.9rem;
+    align-items: center;
+    padding: 0 0.25rem;
+    border-top:1px solid #dcdcdc;
+    border-bottom:1px solid #dcdcdc;
+}
+ .order_top .order_top_text{
+ width: 1.4rem;
+ display: flex;
+ align-items: center;
+}
+.order_top .order_top_text .ordertime{
+  font-size: 0.2rem
+}
+
+ .order_top .order_top_text .jtIcon{
+  width: 0.15rem;
+  height: 0.2rem;
+  padding-left: 0.1rem;
+ }
+ .order_top .order_top_time{
+   display: flex;
+   width:60%;
+   align-items: center;
+}
+ .order_top .order_top_time .selectTime{
+  width: 1.4rem;
+  height: 0.3rem;
+  padding: 0.1rem;
+  font-size: 0.2rem;
+  border: 1px solid #dcdcdc;
+}
+ .order_top .order_top_time .input_span{
+ display: inline-block;
+ width: 10%;
+ text-align: center;
+ }
+ .order_con .order_con_list{
+  padding: 0.15rem 0.25rem;
+  border-bottom:1px solid #dcdcdc;
+ }
+ .order_con .order_con_list a{
+  display: block;
+  text-decoration: none;
+  color: #000;
+ }
+  .order_con .order_con_list .orderListTitle{
+ }
+ .order_con .order_con_list .orderType
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.25rem;
+ }
+.order_con .order_con_list .orderType .orderType_text{
+  display: flex;
+  align-items: center;
+}
+.order_con_list .orderType .orderType_text .typeIcon{
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-right: 0.1rem;
+}
+.orderType .orderType_nuit span{
+  font-size: 0.2rem
+}
+ .order_con_list .order_tip_total{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.1rem;
+}
+
+ .order_con_list .order_tip_total .order_tip{
+  color:#999;
+  margin-left: 0.5rem;
+  font-size: 0.2rem;
+ }
+.order_con_list .order_tip_total .order_total .money_logo{
+  color: #999;
+  font-size: 0.3rem;
+}
+
+.order_tip_total .order_total b{
+  color: #fc0404;
+  font-size: 0.3rem;
+}
+.order_footer{
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  height: 0.83rem;
+  line-height: 0.83rem;
+  border-top: 1px solid #dcdcdc;
+}
+.order_footer .order_footer_btn{
+  display: flex; 
+  background: #fff; 
+}
+.order_footer .order_footer_btn a{
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  text-decoration: none;
+  color: #333;
+  height: 0.83rem;
+  line-height: 0.83rem;
+}
+.order_footer .order_footer_btn a.lxkf{
+  background-image: linear-gradient(0deg, 
+    #638206 0%, 
+    #93ca1f 100%), 
+  linear-gradient(
+    #8fc31f, 
+    #8fc31f);
+  background-blend-mode: normal, 
+    normal;
+  color: #fff;
+}
+.order_con_list  .order_voucher{
+  padding-top: 0.3rem;
+  text-align: right;
+}
+.order_voucher_btn{
+  display: inline-block;
+  text-align: center;
+  width: 1.6rem;
+  height: 0.6rem;
+  line-height: 0.6rem;
+  border-radius: 0.1rem;
+  border: solid 1px #ccc;
+}
+.order_voucher_btn.yrticket{
+  background: #ccc;
+  color: #fff;
+}
+.orderDetail .detail_top{
+  background: #fff;
+  border-top: 1px solid #dcdcdc;
+  border-bottom: 1px solid #dcdcdc;
+  padding: 0.45rem 0.25rem;
+}
+.orderDetail .detail_tip_price{
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.35rem;
+  align-items: center;
+}
+.detail_tip_price .detail_type{
+  display: flex;
+  align-items: center;
+
+}
+.detail_tip_price .detail_type .typeIcon{
+  width: 0.4rem;
+  height: 0.4rem;
+  padding-right: 0.1rem;
+}
+.detail_tip_price .detail_price{
+  font-size: 0.2rem
+
+}
+.detail_top .detail_totol{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.1rem;
+}
+.detail_top .detail_totol .detail_tip{
+  color: #999;
+  padding-left: 30px;
+}
+.detail_top .detail_totol .totalPrice{
+  color: #999;
+  font-size: 0.3rem;
+}
+.detail_top .detail_totol .totalPrice b{
+  color:#e51c23;
+  font-size: 0.3rem;
+}
+.detail_userInfor{
+  margin-top: 0.2rem;
+  background: #fff;
+  border-top: 1px solid #dcdcdc;
+}
+.detail_userInfor .userInfor{
+  border-bottom: 1px solid #dcdcdc;
+  padding: 0.3rem 0.25rem;
+}
+.userInfor span{
+  display: inline-block;
+}
+.userInfor span.usertext{
+  color: #ccc;
+  width: 1.8rem;
+}
+/*二维码*/
+#qrcode{
+  margin: 0.25rem auto;
+}
+#qrcode img{
+  margin:0 auto;
+}
+/*二维码 end*/
+.detail_footer{
+  margin: 0.25rem;
+}
+.detail_footer .noTest,
+.detail_footer .zhnoTest,
+.detail_footer .zhyesTest{
+  color: #fff;
+  text-align: center;
+  width: 5.95rem;
+  height: 0.65rem;
+  line-height: 0.65rem;
+  background-image: linear-gradient(0deg, 
+    #638206 0%, 
+    #93ca1f 100%), 
+  linear-gradient(
+    #cccccc, 
+    #cccccc);
+  background-blend-mode: normal, 
+    normal;
+  border-radius: 0.05rem;
+  border: solid 1px #dcdcdc;
+}
+.detail_footer .yesTest{
+  color: #fff;
+  text-align: center;
+  width: 5.95rem;
+  height: 0.65rem;
+  line-height: 0.65rem;
+  background: #ccc;
+  border-radius: 0.05rem;
+}
+
+
+/*order end*/
