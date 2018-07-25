@@ -136,6 +136,7 @@
 /*线条 end*/
 .content{
     display: flex;
+    justify-content: center;
 }
 .content .productleft{
     width: 20rem;
@@ -241,7 +242,7 @@
 }
 #chartOne,#chartTwo{
     margin: 0.5rem 0;
-    height: 350px;
+    height: 9rem;
 }
 
 /*图表标题样式*/
