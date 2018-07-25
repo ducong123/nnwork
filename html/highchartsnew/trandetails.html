@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="m.178hui.com" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" href="css/transaction.css?v=1"/>
+<script src="js/jquery-1.9.1.min.js"></script>
+</head>
+<body>
+<div class="main">
+	<div class="title"><div class="left_return"  onClick="javascript :history.back(-1);"><img src="img/lefticon.png"/></div></div>
+	<div id="app">
+	</div>
+	<div class="chart">
+		<div class="chartprice"><span>近三个月的价格趋势</span></div>
+		<div id="container"></div>
+	</div>
+	<div class="chart">
+		<div class="chartsale"><span>近三个月的销量趋势</span></div>
+		<div id="container2"></div>
+	</div>
+</div>
+ <!-- 引入 highcharts 文件 -->
+<script src="js/highcharts.js"></script>
+<script>
+	$(function(){
+	  //获取url中的参数
+	  function getUrlParam(name) {
+	    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对
+	    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+	    if (r != null) return decodeURI(r[2]); return null; //返回参数值
+	  }
+       //接收URL中的参数proId,pages,pageSize
+      var pages =getUrlParam('pages');
+
+	  var termporaryName = getUrlParam('termporaryName');
+	console.log("d",termporaryName)//获取的状态
+      var api = "https://shop.nainaiwang.com/smallprogram"
+      $.ajax({
+    	  'url':api+"/productOffer/findProductOfferStatisticsNew",
+		    'type':'get',
+	      'data':{pageNum:pages,pageSize:"20",id:""},
+		    'datatype':'json',
+          success:function(res,status){
+        	console.log(res)//获取的状态
+        	 var prolist = res.data.list//获取数据的数组
+        	 $.each(prolist, function(idx,val) {
+                 var strfour="";
+                // var attr=""
+                 var str=""
+                 var attribute=""//属性
+                //根据id获取详情数据
+                 if(termporaryName == val.termporaryName){
+                	 var title="<h3>"+val.productName+"</h3>"
+                	//判断数据是否大于0
+                	if(val.disparity>=0){
+             				 strfour="<div class='tran_four'><b class='rise'>"+Math.abs(val.disparity).toFixed(2)+"</b><img src='img/upicon.png'></img></div>"
+      	       		}else if(val.disparity<0){
+      	       			 strfour="<div class='tran_four'><b class='drop'>"+Math.abs(val.disparity).toFixed(2)+"</b><img src='img/downicon.png'></img></div>"
+      	      		}
+                	if(val.productAttribute!=null){
+            			   var flag1 = false,flag2 = false,flag3 = false,flag4 =false;
+            				 var value1,value2,value3,value4;
+            				 var attributeList=val.productAttribute.attributes
+            				 $.each(attributeList, function(proaId,pro){
+            					 if(pro.name=="Fe2O3"){
+            						 flag1 = true;
+            						 value1 = pro.value;
+            					 }
+            					 if(pro.name=="粒度"){
+            						 flag2 = true;
+            						 value2 = pro.value;
+            					 }
+            					 if(pro.name=="Al2o3"){
+            						 flag3 = true;
+            						 value3 = pro.value;
+            					 }
+            					 if(pro.name=="窑炉"){
+            						 flag4 = true;
+            						 value4 = pro.value;
+            					 }
+            				})
+            				if(flag1==true){
+            					attribute+="<div class='parameter'><span>Fe2O3："
+       	 	        				  +value1+"</span></div>"
+            				}else {
+            					attribute+="<div class='parameter'><span>Fe2O3：</span></div>"
+       					 	  }
+            				if(flag2==true){
+            					attribute+="<div class='parameter'><span>粒度："
+       	 	        				  +value2+"</span></div>"
+    	        			}else {
+    	        				attribute+="<div class='parameter'><span>粒度：</span></div>"
+           					 }
+            				if(flag3==true){
+            					attribute+="<div class='parameter'><span>Al2o3："
+       	 	        				  +value3+"</span></div>"
+            				}else{
+            					attribute+="<div class='parameter'><span>Al2o3：</span></div>"
+            				}
+            				if(flag4==true){
+            					attribute+="<div class='parameter'><span>窑炉："
+       	 	        				  +value4+"</span></div>"
+            				}else{
+            					attribute+="<div class='parameter'><span>窑炉：</span></div>"
+            				}
+        				//console.log(attribute);
+        			 } else if(val.productAttribute==null){
+        				 attribute="<div class='parameter'><span>Fe2O3：</span></div><div class='parameter'><span>粒度：</span></div><div class='parameter'><span>Al2o3：</span></div><div class='parameter'><span>窑炉：</span></div>"
+        			 }
+    			 //拼接数据列表
+       			 str+="<div class='tranlist'><div class='tran_top'><div class='tran_text'><b class='tran_name'>"
+       					 +val.productName+"</b></div><div class='tran_sales'>销售量："
+       					 +val.sum+val.unit+"</div></div><div class='tran_three'><div class='jy_bt'>交易涨幅对比</div><div class='max_price'>最高价：￥"
+       					 +val.max+"/<span class='unit'>"+val.unit+" </span></div></div><div class='tran_three'>"
+       					 +strfour+"<div class='min_price'>最低价：￥"
+       					 +val.min+"/<span class='unit'>"+val.unit+"</span></div></div><div class='tran_two'>"+attribute+"</div></div>"
+                 }
+
+                 $(".title").append(title)
+                 $("#app").append(str);
+             });
+
+          }
+       })
+       var total=[];
+       var price=[];
+       var dataTime=[];
+       //获取图表数据
+        $.ajax({
+        	'url':api+"/ordersell/findorderSellNew",
+  		  'type':'get',
+  	      'data':{pageNum:1,pageSize:100,id:"",termporaryName:termporaryName },
+    		  'datatype':'json',
+          //'contentType':"application/x-www-form-urlencoded;charset=UTF-8",
+            success:function(data,status){
+            	console.log("offerId",data)//获取的状态
+            	var orderList=data.data.a
+            	if(orderList!=""){
+            		$.each(orderList, function(idp,order) {
+                    	//var r=data[i];
+                    	var curData = new Date()//获取当前时间
+                    	var newData = new Date(order.apply_time);//获取的时间
+                    	var curY = curData.getFullYear();//当前年
+                    	var curM = curData.getMonth()+1;//当前月
+                    	var newY = newData.getFullYear();//获取时间的年
+                    	var newM = newData.getMonth()+1;//
+                    	var newD = newData.getDate();
+                    	if(curY==newY){
+                    		if(curM-3<newM && newM<= curM){
+                    			dataTime.push(newM+"/"+newD)
+                    			total.push(order.sell_num);//成交量数组
+                    			price.push(order.price)
+                          console.log("d",orderList.length)
+                          //
+                    		}
+                    	}
+                    	
+        			})
+                dataTime.reverse()
+                total.reverse()
+                price.reverse()//倒序
+                console.log("月:价格"+total)
+                console.log("月s:",price)
+            	}
+            	//console.log("折线图",total,price)
+    			//折线图
+    		    Highcharts.setOptions({
+    		          chart: {
+    		              type: 'area'  ,                        //指定图表的类型，默认是折线图（line）
+    		              spacingTop:40,
+    		          },
+    		          title: {
+    		              text: ''                 // 标题
+    		          },
+    		          xAxis: {
+    		              categories: dataTime,//x轴数据
+    		             labels: {
+    		                      style: {
+    		                          fontSize:'14px'  //字体
+    		                      }
+    		                  },
+    		          },
+    		          yAxis: {
+    		              title: {
+    		                  text: ' '  ,// y 轴标题
+    		                  style:{
+    		                  },
+    		                  align: 'high',
+    				                offset: 5,
+    				                rotation: 0,
+    				                y:-20
+
+    				            },
+    		              labels: {
+    		                      //y: 20, //x轴刻度往下移动20px
+    		                      style: {
+    		                         // color: '#fff',//颜色
+    		                          fontSize:'14px'  //字体
+    		                      }
+    		                  },
+    		          },
+    		          credits: {
+    		              enabled: false
+    		          },
+
+    		      });
+    		    var chart1 = Highcharts.chart('container', {
+    		    	series: [{
+    		          	name:'价格趋势',
+    		          	data:price,
+    		          }]
+    		    })
+    		    var chart2 = Highcharts.chart('container2', {
+    		    	series: [{
+    		          	name:'交易量',
+    		          	data:total,
+    		          	color:"#999"
+    		          }]
+    		    })
+
+            }
+        })
+	})
+
+</script>
+</body>
+</html>
