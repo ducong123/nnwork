@@ -49,7 +49,7 @@
                 </ul>
                 <div class="line"><i class="line_header"></i><i class="line_wb"></i></div>
                 <div class="list_div" v-if="productList!=null"   >
-                <ul class="ul_List bgulone"ref="rollul"  :class="{anim:animate==true}"  v-for="(listItem,m) in productList">
+                <ul class="ul_List bgulone" ref="rollul"  :class="{anim:animate==true}"  v-for="(listItem,m) in productList">
                     <li><span class="productname">{{listItem.productName}}</span></li>
                     <li><span class="color_red">￥{{listItem.max}}</span></li>
                     <li><span class="color_greed">￥{{listItem.min}}</span></li>
@@ -74,12 +74,8 @@
             </div>
             <div class="line"><i class="line_header"></i><i class="line_wb"></i></div>
             <div class="chartCon food">
-                <transition name="slide-fade">
-                    <div class="" id="chartOne" v-show="showFlag"></div>
-                </transition>
-                <transition name="slide-fade" >
-                    <div class="" id="chartTwo"  v-show="showFlag"></div>
-                </transition>
+                <div class="" id="chartOne"></div>
+                <div class="" id="chartTwo"></div>
             </div>
 
         </div>
@@ -101,7 +97,6 @@
                 productNames:'铝矾土一级生料',
                 url: "https://shop.nainaiwang.com/product",
                 animate:false,
-                showFlag:true
 
             }
         },
@@ -135,7 +130,6 @@
                 let con1 = this.$refs.rollul;
                 con1[0].style.marginTop='-1rem'
                 this.animate= !this.animate
-                this.showFlag = !this.showFlag
                 var that = this
                 console.log( this.animate,"dd")
                 setTimeout(function(){
@@ -145,7 +139,6 @@
                     that.productNames =that.productList[0].productName
                     that.chartData( that.productNames )
                     that.animate=!that.animate;  // 这个地方如果不把animate 取反会出现消息回滚的现象，此时把ul 元素的过渡属性取消掉就可以完美实现无缝滚动的效果了
-                    that.showFlag = !that.showFlag
                 },500)
             },
             chartData(name){

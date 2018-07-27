@@ -203,7 +203,10 @@
 .productleft .productList ul.ul_List:nth-child(2n+1) {
     background:rgba(24, 93, 143, 0.57);
 }
-
+.productleft .productList ul.ul_List .disparity{
+    width: 2rem;
+    text-align: center;
+}
 .productleft .productList ul.ul_List li .jt_icon{
     margin-left: 0.2rem;
     font-size: 0.5rem;
@@ -315,13 +318,13 @@
 }
 /* 可以设置不同的进入和离开动画 */
 /* 设置持续时间和动画函数 */
-.slide-fade-enter-active {
+/*.slide-fade-enter-active {
     transition: all .8s cubic-bezier(.17,.67,.83,.67)
 }
 .slide-fade-enter, .slide-fade-leave-to
-    /* .slide-fade-leave-active for below version 2.1.8 */ {
+    !* .slide-fade-leave-active for below version 2.1.8 *! {
     transform: translateX(19rem);
     opacity: 0;
-}
+}*/
 
 
