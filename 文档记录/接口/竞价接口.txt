@@ -1,0 +1,39 @@
+竞价列表接口：192.168.13.119/nn2/ajaxdata/jingjiaList
+
+get参数：page:页码，pid:分类id,status:状态（1，未开始，2：已开始，3：已结束）
+price_l:起拍价，
+max_num:数量
+pro_name:商品名称
+views:围观人数
+true_name:卖方名称
+jingjia_mode:1是场内，
+attr:属性
+baojia:报价人数
+1.竞价详情
+   offers/jingjiaDetail
+   get参数：
+   id:报盘id
+   pass:竞价密码
+   返回：json
+   // 出价人
+ 
+2.报价列表
+  offers/baojiaData
+  get参数：id:报盘id
+  返回：json
+
+3.报价接口
+  trade/jingjiabaojia
+  post参数：pass:支付密码，price:价格，offer_id:报盘id
+  返回:json  {success:1,info:''},success 1表示成功，info是信息
+  
+  竞价相关的接口，可以在路径前加上192.168.13.119/nn2/，获取我本地的数据，进行测试
+  
+  问题？
+1  保证金金额 字段
+
+2 合同链接地址
+3 加价 减价
+4 倒计时
+
+  
