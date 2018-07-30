@@ -1,0 +1,3 @@
+api = https://shop.nainaiwang.com/product
+/product/ordersell/getOrderListByCateName    /*大盘列表*/
+/product/productOffer/statByCateName       /*产品交易走势*/
