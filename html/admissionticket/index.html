@@ -69,9 +69,18 @@
     },
     created(){
       //this.getRequest()
+        this.getCode()
     },
     methods:{
-      getRequest(){
+        // 获取code发送给后端
+        getCode() {
+            let url = '?code=211kmsakldoa&state=123';
+            // let url = location.search;
+            let index1 = url.indexOf('code=');
+            let index2 = url.indexOf('&state');
+
+            let code = url.substring(index1 + 5, index2);
+            console.log("url:",index1,"-",index2,"-",code);
 
         }
       }

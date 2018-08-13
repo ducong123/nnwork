@@ -42,25 +42,25 @@
                 <div class="line"><i class="line_header"></i><i class="line_wb"></i></div>
                 <ul class="ul_title">
                     <li><span>商品名称</span></li>
-                    <li><span>最高价(元/吨）</span></li>
-                    <li><span>最低价(元/吨）</span></li>
-                    <li><span>最近成交价(元/吨）</span></li>
-                    <li><span>销售量（吨）</span></li>
+                    <li><span>最高价</span></li>
+                    <li><span>最低价</span></li>
+                    <li><span>最近成交价</span></li>
+                    <li><span>销售量</span></li>
                 </ul>
                 <div class="line"><i class="line_header"></i><i class="line_wb"></i></div>
                 <div class="list_div" v-if="productList!=null"   >
                 <ul class="ul_List bgulone" ref="rollul"  :class="{anim:animate==true}"  v-for="(listItem,m) in productList">
-                    <li><span class="productname">{{listItem.productName}}</span></li>
-                    <li><span class="color_red">￥{{listItem.max}}</span></li>
-                    <li><span class="color_greed">￥{{listItem.min}}</span></li>
+                    <li><span class="productname">{{listItem.cate_name}}</span></li>
+                    <li><span class="color_red">￥{{listItem.max_price}}(元/{{listItem.unit}})</span></li>
+                    <li><span class="color_greed">￥{{listItem.min_price}}(元/{{listItem.unit}})</span></li>
                     <li>
                         <span class="disparity color_l">
-                            ￥{{Math.abs(listItem.disparity).toFixed(2)}}
+                            ￥{{listItem.current_price}}(元/{{listItem.unit}})
                         </span>
-                        <i v-if='listItem.disparity<0' class="jt_icon icon-arrowDown"></i>
+                        <i v-if='listItem.price_diff<0' class="jt_icon icon-arrowDown"></i>
                         <i v-else class="jt_icon icon-arrowUp"></i>
                     </li>
-                    <li><span class="">{{listItem.sum}}</span></li>
+                    <li><span class="">{{listItem.total_num}}({{listItem.unit}})</span></li>
                 </ul>
                 </div>
                 <div class="list_divs" v-else>无数据</div>
@@ -69,7 +69,7 @@
         <div class="highchartRight">
             <div class="chartTitle">
                 <i class="i_Icon"></i>
-                <span class="name">{{productNames}}近3个月交易趋势</span>
+                <span class="name">{{productNames}}交易</span>
                 <span class="icon_line"><i class="line_header"></i><i class="line_wb"></i></span>
             </div>
             <div class="line"><i class="line_header"></i><i class="line_wb"></i></div>
@@ -95,7 +95,7 @@
             return {
                 productList:[],//大盘列表
                 productNames:'铝矾土一级生料',
-                url: "https://shop.nainaiwang.com/product",
+                url:'https://shop.nainaiwang.com/product',
                 animate:false,
 
             }
@@ -111,7 +111,7 @@
                 var that= this;
                 axios({
                     method: 'get',
-                    url: this.url+'/productOffer/findProductOfferStatisticsNew',
+                    url: this.url+'/productOffer/statByCateName',
                     params:{
                         pageNum:1,
                         pageSize:1000,
@@ -121,8 +121,8 @@
                     var list = res.data.data.list;
                     //初始数据
                     that.productList =list
-                    that.productNames =list[0].productName
-                   that.chartData( that.productNames )
+                    that.productNames =list[0].cate_name
+                    that.chartData( that.productNames )
                     //初始数据end
                 })
             },
@@ -136,7 +136,7 @@
                     that.productList.push(that.productList[0]);
                     that.productList.shift(that.productList[0]);
                     con1[0].style.marginTop='0rem';
-                    that.productNames =that.productList[0].productName
+                    that.productNames =that.productList[0].cate_name
                     that.chartData( that.productNames )
                     that.animate=!that.animate;  // 这个地方如果不把animate 取反会出现消息回滚的现象，此时把ul 元素的过渡属性取消掉就可以完美实现无缝滚动的效果了
                 },500)
@@ -145,41 +145,33 @@
                 var that= this;
                 axios({
                     method: 'get',
-                    url: this.url+'/ordersell/findorderSellNew',
-                    params:{
+                    url: this.url+'/ordersell/getOrderListByCateName',
+                        params:{
                         pageNum:1,
-                        pageSize:100,id:"",
-                        termporaryName:name,
+                        pageSize:100,
+                        cateName:name,
                     }
                 }).then(function(chartRes){
-                    var orderList=chartRes.data.data.a
+                    var orderLists=chartRes.data.data.orderList
                     var total=[];//数量数组
                     var price=[];//价格数组
                     var dataTime=[];//时间数组x轴
-                    console.log(orderList,'order=')
-                    if(orderList!="") {
-                        for (var m = 0; m < orderList.length; m++) {
-                            //var r=data[i];
-                            var curData = new Date()//获取当前时间
-                            var newData = new Date(orderList[m].apply_time);//获取的时间
-                            var curY = curData.getFullYear();//当前年
-                            var curM = curData.getMonth() + 1;//当前月
+                    var priceTitle ="";//价格y轴标题
+                    var totalTitle=""//销量y轴标题
+                    console.log(orderLists,'order=')
+                    if(orderLists!="") {
+                        for (var m = 0; m < orderLists.length; m++) {
+                           /* var curData = new Date()//获取当前时间*/
+                            var newData = new Date(orderLists[m].order_time);//获取的时间
                             var newY = newData.getFullYear();//获取时间的年
-                            var newM = newData.getMonth() + 1;//
-                            var newD = newData.getDate();
-                            if (curY == newY) {
-                                if (curM - 3 < newM && newM <= curM) {
-                                    dataTime.push(newM + "/" + newD)
-                                    total.push(orderList[m].sell_num);//成交量数组
-                                    price.push(orderList[m].price)
-                                    console.log("d", orderList.length)
-                                    //
-                                }
-                            }
+                            var newM = newData.getMonth() + 1;//获取时间的月
+                            var newD = newData.getDate();//获取时间的日
+                             dataTime.push(newY+"/"+newM + "/" + newD)
+                             total.push(orderLists[m].num);//成交量数组
+                             price.push(orderLists[m].price);//成交单价数组
+                             priceTitle ="价格(元/"+orderLists[0].unit+")"
+                             totalTitle ="销量（"+orderLists[0].unit+")"
                         }
-                        dataTime.reverse()
-                        price.reverse()
-                        total.reverse()
                         var option=({
                             chart: {
                                 type: 'area', //指定图表的类型，默认是折线图（line）
@@ -190,7 +182,7 @@
                             },
                             title: {
                                 useHTML:true,
-                                text: '<span class="titleStyle">近三月价格趋势<i class="right_sj1"></i><i class="right_sj2"></i></span>', // 标题
+                                text: '<span class="titleStyle">价格趋势<i class="right_sj1"></i><i class="right_sj2"></i></span>', // 标题
                                 align:'left',
                                 style:{
                                     color: '#45d1ed',
@@ -215,7 +207,7 @@
                             },
                             yAxis: {
                                 title: {
-                                    text: '价格（元/吨）' , // y 轴标题
+                                    text: priceTitle , // y 轴标题
                                     align:'high',
                                     style:{
                                         color:'#b6dcf6'
@@ -247,7 +239,7 @@
                             },
                             title: {
                                 useHTML:true,
-                                text: '<span class="titleStyle">近三月销量趋势<i class="right_sj1"></i><i class="right_sj2"></i></span>', // 标题
+                                text: '<span class="titleStyle">销量趋势<i class="right_sj1"></i><i class="right_sj2"></i></span>', // 标题
                                 align:'left',
                                 style:{
                                     color: '#45d1ed',
@@ -272,7 +264,7 @@
                             },
                             yAxis: {
                                 title: {
-                                    text: '销量（吨）' , // y 轴标题
+                                    text: totalTitle , // y 轴标题
                                     align:'high',
                                     style:{
                                         color:'#b6dcf6'
