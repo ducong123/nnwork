@@ -1,0 +1,332 @@
+@charset "utf-8";
+*{
+    padding:0px;
+    margin: 0px;
+    font-family: SimHei;
+}
+.bg_img{
+    position: fixed;
+    top:0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: url("../img/bag.jpg")no-repeat center;
+    background-size: cover;
+    z-index: -1;
+}
+/*字体大小*/
+.main .title h2{
+    font-size: 0.7rem;
+}
+.chartTitle{
+
+    font-size: 0.5rem;
+
+    color: #efefef;
+
+    display: flex;
+
+    align-items: center;
+
+    margin-bottom: 0.2rem;
+}
+/*字体大小end*/
+.main .title {
+    text-align: center;
+    margin: 0 0.3rem;
+}
+.main .title h2{
+    color:#fff;
+    display: inline-block;
+    width: 12rem;
+    height: 1.6rem;
+    line-height: 1.6rem;
+    text-align: center;
+    background-color: rgba(0, 160, 233, 0.29);
+    position: relative;
+    border-radius: 0px 0rem 1.2rem 1.2rem;
+}
+/*线条*/
+.main .title h2 .left_line{
+    position: absolute;
+    top: 0.2rem;
+    left: -6.4rem;
+    width: 6.4rem;
+    height: 1.5rem;
+    background: url(../img/bag_left.png) no-repeat right center;
+}
+.main .title h2 .right_line{
+    position: absolute;
+    top: 0.2rem;
+    right: -6.4rem;
+    width: 6.4rem;
+    height: 1.5rem;
+    background: url(../img/bag_right.png) no-repeat left center;
+}
+.main .title h2 i.lines{
+    display: inline-block;
+    position: absolute;
+    top:0px;
+    left: 0px;
+    width: 12rem;
+    height: 0.1rem;
+    background: rgba(0, 160, 233, 1);
+}
+.main .title h2 i.linex{
+    display: inline-block;
+    position: absolute;
+    bottom: 0px;
+    left: 0.63rem;
+    width: 10.8rem;
+    height: 0.1rem;
+    background: rgba(0, 160, 233, 1);
+}
+.main .title h2 i.linez1{
+    display: inline-block;
+    position: absolute;
+    top: 0rem;
+    left: 0.28rem;
+    width: 0.1rem;
+    height: 1.65rem;
+    background: rgba(0, 160, 233, 1);
+    transform: rotate(160deg);
+    -o-transform: rotate(160deg);
+    -moz-transform: rotate(160deg);
+    -webkit-transform: rotate(160deg);
+}
+.main .title h2 i.linez2{
+    display: inline-block;
+    position: absolute;
+    top: 0rem;
+    left: 0.01rem;
+    width: 0.09rem;
+    height: 1.65rem;
+    background: rgba(0, 160, 233, 1);
+    transform: rotate(160deg);
+    -o-transform: rotate(160deg);
+    -moz-transform: rotate(160deg);
+    -webkit-transform: rotate(160deg);
+}
+.main .title h2 i.liney1{
+    display: inline-block;
+    position: absolute;
+    top: 0rem;
+    right: 0.3rem;
+    width: 0.1rem;
+    height: 1.65rem;
+    background: rgba(0, 160, 233, 1);
+    transform: rotate(-160deg);
+    -o-transform: rotate(-160deg);
+    -moz-transform: rotate(-160deg);
+    -webkit-transform: rotate(-160deg);
+}
+.main .title h2 i.liney2{
+    display: inline-block;
+    position: absolute;
+    top: 0rem;
+    right: 0.01rem;
+    width: 0.09rem;
+    height: 1.65rem;
+    background: rgba(0, 160, 233, 1);
+    transform: rotate(-160deg);
+    -o-transform: rotate(-160deg);
+    -moz-transform: rotate(-160deg);
+    -webkit-transform: rotate(-160deg);
+}
+/*线条 end*/
+.content{
+    display: flex;
+    justify-content: center;
+}
+.content .productleft{
+    width: 20rem;
+    margin: 0.5rem;
+}
+.productleft .chartTitle .titleName{
+    width: 5.5rem;
+}
+.chartTitle i.i_Icon{
+    width: 0.6rem;
+    height: 0.5rem;
+    margin-right: 0.2rem;
+    background: #e98900;
+}
+.productleft .chartTitle .icon_line{
+    width: 13.5rem;
+    height: 1px;
+    background: #7aaccd;
+    margin-left: 0.2rem;
+    position: relative;
+}
+
+.line_header{
+    width: 0.15rem;
+    height: 0.15rem;
+    background: #7aaccd;
+    position: absolute;
+    left: 0px;
+    top: -0.055rem;
+}
+.line_wb{
+    width: 0.15rem;
+    height: 0.15rem;
+    background: #7aaccd;
+    position: absolute;
+    right: 0px;
+    top: -0.055rem;
+}
+.line{
+    width: 100%;
+    height: 1px;
+    background: #7aaccd;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.productleft .productList ul{
+    display: flex;
+    font-size: 0.35rem;
+    color: #9acced;
+    align-items: center;
+    height: 1rem;
+    line-height: 1rem;
+}
+.productleft .productList ul li:nth-child(1){
+    width: 4.5rem;
+}
+.productleft .productList ul li {
+    width: 4rem;
+    height: 1rem;
+    line-height: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.productleft .productList ul.ul_List:nth-child(2n+1) {
+    background:rgba(24, 93, 143, 0.57);
+}
+.productleft .productList ul.ul_List .disparity{
+    width: 2.5rem;
+    text-align: center;
+}
+.productleft .productList ul.ul_List li .jt_icon{
+    margin-left: 0.2rem;
+    font-size: 0.5rem;
+}
+.productleft .productList ul.ul_List  .jt_icon.icon-arrowUp{
+    color:#f94600
+}
+.productleft .productList ul.ul_List  .jt_icon.icon-arrowDown{
+    color:#00e900;
+}
+
+.color_red{
+    color:#f94600
+}
+.color_greed{
+    color:#00e900;
+}
+
+/*右侧图表*/
+.content .highchartRight {
+    width: 18.3rem;
+    margin: 0.5rem
+}
+.highchartRight .chartTitle .name{
+    height: 1rem;
+    line-height: 1rem;
+    overflow: hidden;
+}
+.highchartRight .chartTitle .icon_line{
+    flex: 1;
+    height: 1px;
+    background: #7aaccd;
+    display: flex;
+    align-items: center;
+    margin-left: 0.2rem;
+    position: relative;
+}
+#chartOne,#chartTwo{
+    margin: 0.5rem 0;
+    height: 8.8rem;
+}
+
+/*图表标题样式*/
+.titleStyle{
+    padding: 0.1rem 0.6rem;
+    background-color: rgba(23, 76, 130, 0.5);
+    border: 1px solid rgba(73, 203, 227, 0.5);
+    border-top:1px solid #50d0fd;
+    border-right:1px solid #50d0fd;
+    position: relative;
+}
+.titleStyle:before{
+    display: inline-block;
+    content: "";
+    border-style: solid;
+    border-width: 0.3rem 0rem 0rem  0.3rem;
+    border-color:  #50d0fd transparent;
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    right: 1px;
+    top:1px;
+}
+.titleStyle:after{
+    display: inline-block;
+    content: "";
+    border-style: solid;
+    border-width: 0rem 0.3rem   0.3rem 0rem   ;
+    border-color:  #50d0fd transparent;
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    left: 1px;
+    bottom:1px;
+}
+.titleStyle .right_sj1{
+    display: inline-block;
+    content: "";
+    border-style: solid;
+    border-width: 0rem 0rem  0.2rem   0.2rem ;
+    border-color:  #50d0fd transparent;
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    right: -1px;
+    bottom:0px;
+}
+.titleStyle .right_sj2{
+    display: inline-block;
+    content: "";
+    border-style: solid;
+    border-width: 0rem 0rem  0.2rem   0.2rem ;
+    border-color:  #0c2c43 transparent;
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    right: -1px;
+    bottom:-1px;
+}
+/*图表标题样式 end*/
+.list_div{
+    height: 18rem;
+    overflow: hidden;
+    transition:all 0.5s;
+}
+.anim{
+    transition:all 0.5s;
+}
+/* 可以设置不同的进入和离开动画 */
+/* 设置持续时间和动画函数 */
+/*.slide-fade-enter-active {
+    transition: all .8s cubic-bezier(.17,.67,.83,.67)
+}
+.slide-fade-enter, .slide-fade-leave-to
+    !* .slide-fade-leave-active for below version 2.1.8 *! {
+    transform: translateX(19rem);
+    opacity: 0;
+}*/
+
+

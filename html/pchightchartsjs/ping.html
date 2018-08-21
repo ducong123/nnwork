@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="m.178hui.com" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="css/ping.css?v=1"/>
+    <link rel="stylesheet" href="css/media.css?v=1"/>
+    <link rel="stylesheet" href="css/style.css?v=1"/>
+</head>
+<body>
+<div class="bg_img"></div>
+<div class="main" id="main">
+    <div class="title">
+        <h2>
+            <!--左边线条-->
+            <div class="left_line"></div>
+            <!--左边线条 end-->
+            <i class="lines"></i>
+            <i class="linez1"></i>
+            <i class="linez2"></i>
+            <i class="linex"></i>
+            <i class="liney1"></i>
+            <i class="liney2"></i>
+            <span class="title_text">耐耐网耐火行业交易大盘<i class="icon-jtdownhome2icon-jtup"></i></span>
+            <!--右边线条-->
+            <div class="right_line"></div>
+            <!--右边线条 end-->
+        </h2>
+    </div>
+    <div class="content">
+        <div class="productleft">
+            <div class="chartTitle">
+                <i class="i_Icon"></i>
+                <span class="titleName">耐火行业交易大盘统计表</span>
+                <span class="icon_line"><i class="line_header"></i><i class="line_wb"></i></span>
+            </div>
+            <div class="productList">
+                <div class="line"><i class="line_header"></i><i class="line_wb"></i></div>
+                <ul class="ul_title">
+                    <li><span>商品名称</span></li>
+                    <li><span>最高价</span></li>
+                    <li><span>最低价</span></li>
+                    <li><span>最近成交价</span></li>
+                    <li><span>销售量</span></li>
+                </ul>
+                <div class="line"><i class="line_header"></i><i class="line_wb"></i></div>
+                <div class="list_div">
+                <!-- <ul class="ul_List bgulone" ref="rollul"  :class="{anim:animate==true}"  v-for="(listItem,m) in productList">
+                    <li><span class="productname">{{listItem.cate_name}}</span></li>
+                    <li><span class="color_red">￥{{listItem.max_price}}(元/{{listItem.unit}})</span></li>
+                    <li><span class="color_greed">￥{{listItem.min_price}}(元/{{listItem.unit}})</span></li>
+                    <li>
+                        <span class="disparity color_l">
+                            ￥{{listItem.current_price}}(元/{{listItem.unit}})
+                        </span>
+                        <i v-if='listItem.price_diff<0' class="jt_icon icon-arrowDown"></i>
+                        <i v-else class="jt_icon icon-arrowUp"></i>
+                    </li>
+                    <li><span class="">{{listItem.total_num}}({{listItem.unit}})</span></li>
+                </ul> -->
+                </div>
+                
+            </div>
+        </div>
+        <div class="highchartRight">
+            <div class="chartTitle">
+                <i class="i_Icon"></i>
+                <span class="name"><!-- {{productNames}} --></span>
+                <span class="icon_line"><i class="line_header"></i><i class="line_wb"></i></span>
+            </div>
+            <div class="line"><i class="line_header"></i><i class="line_wb"></i></div>
+            <div class="chartCon food">
+                <div class="" id="chartOne"></div>
+                <div class="" id="chartTwo"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+<script src="js/jquery-1.9.1.min.js"></script>
+<!-- 引入 highcharts 文件 -->
+<script src="js/highcharts.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var baseUrl="https://shop.nainaiwang.com/product"
+        pingData();
+        function  pingData(){
+            $.ajax({
+                'url': baseUrl + "/productOffer/statByCateName",
+                'type': 'get',
+                'data': {pageNum: 1, pageSize: 1000, id: ""},
+                'datatype': 'json',
+                success: function (res) {
+                    console.log("d",res)
+                    var prolist = res.data.list//获取数据的数组
+                     var strList = ""//拼接的所有内容
+                     var current_price ="";//最近成交价
+                    if (prolist != "") {
+                         $.each(prolist, function (idx, val) {
+
+                            if(val.price_diff!=null){
+                                if (val.price_diff >=0) {
+                                // console.log(prolist)
+                                current_price = val.current_price+'<span class="unit">(元/'+val.unit+')</span></span><i class="jt_icon icon-arrowUp"></i>'
+                                } else if (val.price_diff < 0) {
+                                   current_price = val.current_price+'<span class="unit">(元/'+val.unit+')</span></span><i class="jt_icon icon-arrowDown"></i>'
+                                }
+                            }else{
+                               current_price ='0.00<span class="unit">(元/'+val.unit+')</span></span><i class="jt_icon icon-arrowUp"></i>'
+                            }
+                            strList+='<ul class="ul_List bgulone"><li><span class="productname">'+val.cate_name+'</span></li> <li><span class="color_red">￥'+val.max_price+'<span class="unit">(元/'+val.unit+')</span></span></li><li><span class="color_greed">￥'+val.min_price+'<span class="unit">(元/'+val.unit+')</span></span></li><li><span class="disparity color_l">￥'+current_price+'</li><li><span>'+val.total_num+'<span class="unit">('+val.unit+')</span></span></li></ul>'
+                         })
+                         $("div.list_div").append(strList)
+                         console.log(prolist[0].cate_name,"dd")
+                         chartData(prolist[0].cate_name) 
+                         var num = $('.list_div').find('ul.ul_List').length;
+                         if(num > 1){
+                          var time=setInterval(timer,5000);
+
+                        }else{
+                            $("div.list_div").append("无数据")
+                        }
+                    }
+                }
+            })
+        }    
+        function timer(){
+            $('.list_div ul:first').css({marginTop:"-1rem"})
+            setTimeout(function(){
+                $('.list_div ul:first').css({marginTop : "0rem"});
+                var ulfirst=$('.list_div ul:first')
+                $('.list_div').append(ulfirst);
+                var dataName=$(".list_div ul:first").find("li").eq(0).text();
+                console.log("dataName:",dataName)
+                chartData(dataName) 
+            },500)
+        }
+        function chartData(name){
+            $.ajax({
+                'url': baseUrl + "/ordersell/getOrderListByCateName",
+                'type': 'get',
+                'data': {pageNum: 1, pageSize: 1000, cateName:name,},
+                'datatype': 'json',
+                success: function (chart) {
+                    console.log("chart",chart)
+                    $(".chartTitle .name").text(name+"交易")
+                    var orderLists=chart.data.orderList
+                    var total=[];//数量数组
+                    var price=[];//价格数组
+                    var dataTime=[];//时间数组x轴
+                    var priceTitle ="";//价格y轴标题
+                    var totalTitle=""//销量y轴标题
+                    console.log('order=',orderLists)
+                    if(orderLists.length>0) {
+                        for (var m = 0; m < orderLists.length; m++) {
+                           /* var curData = new Date()//获取当前时间*/
+                            var newData = new Date(orderLists[m].order_time);//获取的时间
+                            var newY = newData.getFullYear();//获取时间的年
+                            var newM = newData.getMonth() + 1;//获取时间的月
+                            var newD = newData.getDate();//获取时间的日
+                             dataTime.push(newY+"/"+newM + "/" + newD)
+                             total.push(orderLists[m].num);//成交量数组
+                             price.push(orderLists[m].price);//成交单价数组
+                             priceTitle ="价格(元/"+orderLists[0].unit+")"
+                             totalTitle ="销量（"+orderLists[0].unit+")"
+                        }
+                        
+                    }else{
+                        total=[];//数量数组
+                        price=[];//价格数组
+                        dataTime=[];//时间数组x轴
+                    }
+                        var option=({
+                            chart: {
+                                type: 'area', //指定图表的类型，默认是折线图（line）
+                                backgroundColor:'',
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            title: {
+                                useHTML:true,
+                                text: '<span class="titleStyle">价格趋势<i class="right_sj1"></i><i class="right_sj2"></i></span>', // 标题
+                                align:'left',
+                                style:{
+                                    color: '#45d1ed',
+                                    fontSize: '0.3rem',
+                                }
+                            },
+                            xAxis: {
+                                title:{
+                                    text:'时间',
+                                    align:'high',
+                                    style:{
+                                        color:'#b6dcf6'
+                                    }
+                                },
+                                categories: dataTime,
+                                labels: {
+                                    style: {
+                                        color:'#b6dcf6'
+                                    }
+                                },// x 轴分类
+
+                            },
+                            yAxis: {
+                                title: {
+                                    text: priceTitle , // y 轴标题
+                                    align:'high',
+                                    style:{
+                                        color:'#b6dcf6'
+                                    }
+                                },
+                                labels: {
+                                    style: {
+                                        color:'#b6dcf6'
+                                    }
+                                },
+                                gridLineColor: 'rgba(182, 220, 246, 0.55)',
+                                gridLineWidth: 1,
+                            },
+                            series: [{// 数据列
+                                showInLegend: false,   //隐藏数据名称
+                                // name: 'Series',
+                                data:price,
+                                fillColor: 'rgba(23, 76, 130, 0.5)'
+                            }]
+
+                        });
+                        var optionTwo=({
+                            chart: {
+                                type: 'column', //指定图表的类型，默认是折线图（line）
+                                backgroundColor:'',
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            title: {
+                                useHTML:true,
+                                text: '<span class="titleStyle">销量趋势<i class="right_sj1"></i><i class="right_sj2"></i></span>', // 标题
+                                align:'left',
+                                style:{
+                                    color: '#45d1ed',
+                                    fontSize: '0.3rem',
+                                }
+                            },
+                            xAxis: {
+                                title:{
+                                    text:'时间',
+                                    align:'high',
+                                    style:{
+                                        color:'#b6dcf6'
+                                    }
+                                },
+                                categories: dataTime,
+                                labels: {
+                                    style: {
+                                        color:'#b6dcf6'
+                                    }
+                                },// x 轴分类
+
+                            },
+                            yAxis: {
+                                title: {
+                                    text: totalTitle , // y 轴标题
+                                    align:'high',
+                                    style:{
+                                        color:'#b6dcf6'
+                                    }
+                                },
+                                labels: {
+                                    style: {
+                                        color:'#b6dcf6'
+                                    }
+                                },
+                                gridLineColor: 'rgba(182, 220, 246, 0.55)',
+                                gridLineWidth: 1,
+                            },
+                            series: [{// 数据列
+                                showInLegend: false,   //隐藏数据名称
+                                // name: 'Series',
+                                data:total,
+                                fillColor: 'rgba(23, 76, 130, 0.5)'
+                            }]
+
+                        });
+                        var chart = Highcharts.chart("chartOne", option)
+                        var chart2 = Highcharts.chart("chartTwo", optionTwo)
+                        console.log("月:价格=" + total )
+                        console.log("月s:", price)
+                        console.log(dataTime, 'resllll')
+                }
+            })
+        }
+
+     })
+   
+
+</script>

@@ -1,0 +1,15 @@
+@charset "utf-8";
+*{
+  padding: 0px;
+  margin: 0px;
+}
+body{
+  font-size: 0
+}
+a{
+  text-decoration: none;
+}
+button, input[type="reset"], input[type="button"], input[type="submit"],input[type="text"]{
+  line-height:normal !important;
+  outline:none;
+}
