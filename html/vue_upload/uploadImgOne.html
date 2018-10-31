@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>多个单图片上传vue(拖拽，点击上传)</title>
+  <script src="http://www.jq22.com/jquery/vue.min.js"></script>
+  <script src="axios.min.js"></script>
+ <style type="text/css">
+   .img1,.img2{
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border:1px solid #eee;
+    margin-bottom: 20px; 
+   }
+   .companyImg,.bankImg{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 200px;
+    background: #fff;
+   }
+  .companyImg img,.bankImg img{
+    width: 100%;
+    height: 100%;
+  }
+ 
+  .ghbut{
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 30px;
+    background: #908e8ec2;
+  } 
+  .ghbut span{
+    display: block;
+    text-align: center;
+    line-height: 30px;
+    color: #f5f5f5;
+  }
+ </style>
+</head>
+<body>
+<div id="app">
+<div class="box">
+  <div class="img1">
+    <input id="id" type="file"  @change="changeImage($event,1)" style="display: none;" />
+    <div  @drop="drop($event,1)" @dragenter="dragenter($event,1)" @dragover="dragover($event,1)">拖拽
+      <label for="id" >上传<img src="./upload.png"></label>
+      <div class="companyImg" v-show="companyImg!=''" @mouseenter="enter($event,1)">
+        <img :src="companyImg">
+      </div>
+      <label @mouseleave="leave($event,1)" for='id' v-show="curImgShow" class="ghbut">
+        <span>更换</span>
+      </label>
+    </div>
+  </div>
+  <div class="img2">
+    <input id="id2" type="file"  @change="changeImage($event,2)" style="display: none;" />
+    <div  @drop="drop($event,2)" @dragenter="dragenter($event,2)" @dragover="dragover($event,2)" style="border:1px solid #eee;width:200px;height: 200px">拖拽
+      <label for="id2" >上传<img src="./upload.png"></label>
+      <div class="bankImg" v-show="bankImg!=''" @mouseenter="enter($event,2)">
+        <img :src="bankImg">
+      </div>
+      <label @mouseleave="leave($event,2)" for='id2' v-show="curbankImgShow" class="ghbut">
+        <span>更换</span>
+      </label>
+    </div>
+  </div>
+  <!-- other element-->
+</div>
+</div>
+<script>
+  var baseUrl="http://192.168.13.119:9081"
+  //  import up from  './src/components/Hello'
+  var app = new Vue({
+    el: '#app',
+    data () {
+      return {
+        inputtext:{},
+        url:"http://192.168.13.119:9081/file/uploadOne",
+        companyImg:'',//图片1 地址
+        bankImg:'',//图片2 地址
+        curImgShow:false,//1更换按钮的显示
+        curbankImgShow:false//2更换按钮的显示
+      }
+    },
+    methods: {
+        /*单击选择文件 num,代表点击的哪个上传图*/
+        changeImage(el,num) {
+          if (!el.target.files[0].size) return;
+          this.fileList(el.target,num);
+          console.log("地址",el.target)
+        },
+        
+        fileAdd(file,num) {
+          console.log("ll",file)
+              //总大小
+             // this.size = this.size + file.size;
+              //判断是否为图片文件
+              if (file.type.indexOf('image') == -1) {
+                  alert("请上传图片文件")
+              } else {
+                  let reader = new FileReader();
+                  reader.vue = this;
+                  reader.readAsDataURL(file);
+                  reader.onload = function () {
+                     file.src = this.result;
+                    if(num==1){
+                      this.vue.companyImg=this.result;
+                    }else{
+                      this.vue.bankImg=this.result;
+                    }
+                  }
+                let formdata = new FormData();
+                formdata.append('file',file);
+                this.uploadImage(formdata,num)//上传图片
+              }
+          },
+        fileList(fileList,num) {
+          let files = fileList.files;
+          for (let i = 0; i < files.length; i++) {
+            //判断是否为文件夹
+            if (files[i].type != '') {
+                this.fileAdd(files[i],num);
+            }
+          }
+        },
+        dragenter(el,num) {
+          el.stopPropagation();
+          el.preventDefault();
+        },
+        dragover(el,num) {
+          el.stopPropagation();
+          el.preventDefault();
+        },
+        drop(el,num) {
+          el.stopPropagation();
+          el.preventDefault();
+          this.fileList(el.dataTransfer,num);
+        },
+        //上传图片接口
+        uploadImage(formdata,num){
+          var that =this
+          axios({
+             method: 'post',
+             url:this.url,
+             data:formdata,
+          }).then(function(res){
+            
+             if(num==1){
+              that.inputtext.businessLicence=baseUrl+"/file/"+res.data.url
+              console.log("cc",that.inputtext.businessLicence)
+             }else if(num==2){
+              that.inputtext.evidence=sLicence=baseUrl+"/file/"+res.data.url
+                console.log("upbankImg",that.inputtext.evidence)
+             }      
+          })
+        },
+        enter(e,num){
+          //e.target.id
+          if(num == 1){
+            this.curImgShow=true
+          }else{
+            this.curbankImgShow=true
+          }
+        },
+        leave(e,m){
+          //e.target.id
+          if(m == 1){
+            this.curImgShow=false
+          }else{
+            this.curbankImgShow=false
+          }
+        },
+    }
+  })
+</script>
+</body>
+</html>

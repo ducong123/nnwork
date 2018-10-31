@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="author" content="m.178hui.com" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="format-detection" content="telephone=no">
+  <style type="text/css">
+    body{
+      background: #f4f4f4;
+    }
+  </style>
+</head>
+<body>
+ <div id="content" class="white">
+      <h1>加入企业用户列表</h1>
+        <div class="bloc">
+            <div class="title">
+                申请加入企业用户审核
+            </div>
+            <div class="mt-20 companyTable">
+                <div class="asscompanyInfo" v-for="(items,m,index) in companyList" v-if="">
+                    <div class="companyName"><a>{{m}}</a></div>
+                    <div>{{items.length}}</div>
+                    <table class="table  table-border table-bordered table-hover table-bg table-sort">
+                        <tr class="text-c">
+                            <th>序号</th>
+                            <th>姓名</th>
+                            <th>联系方式</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                        <tr v-for="(listValue,s) in items" v-if="s<listValue.count">
+                            <td v-if="s<9">0{{s+1}}</td>
+                            <td v-else>{{s+1}}</td>
+                             <td>{{listValue.name}}</td>
+                            <td>{{listValue.mobile}}</td>
+                            <td>
+                                <span v-if="listValue.status == 1" class="yesadopt">已通过</span>
+                                <span v-else-if="listValue.status == -1" class="noadopt">未通过</span>
+                                 <span v-else class="">待审核</span>
+                            </td>
+                            <td class="done">
+                                <a data-num='1' class="cur " :class="{ 'yesCur':listValue.status == 1}" @click="stateSel($event,m,s)">同意</span>
+                                <a data-num='-1' class="cur" :class="{ 'noCur':listValue.status == -1}" @click="stateSel($event,m,s)">不同意</span>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="moreInfo" v-if="items.length>3">
+                        <div v-if="items.length>items[0].count" :data-index="index"  @click="more(m)">
+                            <i class="moreIcon fa fa-plus-circle"></i>
+                            <div>显示更多</div>
+                        </div>
+                        <div v-else  @click="reduce(m)">
+                            <i class="moreIcon fa fa-minus-circle"></i>
+                            <div>收起</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>{{time | formatDate}}</div>
+        </div>
+        <div class="upIcon" @click="toTop()">
+           <!--  <img src="{views:images/upIcon.png}"/> -->
+            <div class="uptitle">回到顶部</div>
+        </div>
+    </div>
+</body>
+<script src="js/vue.min.js"></script>
+<script src="js/axios.min.js"></script>
+<script>
+//加载更多
+ new Vue({
+    el:'#content',
+    data(){
+      return {
+        companyList:{
+          耐耐云商:[
+            {
+              id:1,
+              companyName:"耐耐云商",
+              status:-1,
+              name:"wsd",
+              mobile:"123"
+            },
+            {
+              id:12,
+              companyName:"耐耐云商",
+              status:-1,
+              name:"wsd",
+              mobile:"123"
+            },
+            {
+              id:13,
+              companyName:"耐耐云商",
+              status:0,
+              name:"wsd",
+              mobile:"123"
+            },
+            {
+              id:14,
+              companyName:"耐耐云商",
+              status:1,
+              name:"wsd",
+              mobile:"123"
+            }
+
+          ],
+          ceshi:[
+            {
+              id:21,
+              companyName:"耐耐云商",
+              status:-1,
+              name:"wsd",
+              mobile:"123"
+            },
+            {
+              id:22,
+              companyName:"耐耐云商",
+              status:-1,
+              name:"wsd",
+              mobile:"123"
+            },
+            {
+              id:23,
+              companyName:"耐耐云商",
+              status:-1,
+              name:"wsd",
+              mobile:"123"
+            },
+            {
+              id:24,
+              companyName:"耐耐云商",
+              status:-1,
+              name:"wsd",
+              mobile:"123"
+            }
+          ],
+          test:[
+            {
+              id:31,
+              companyName:"耐耐云商",
+              status:-1,
+              name:"wsd",
+              mobile:"123"
+            }
+          ],
+        },//企业数据
+        count:3,
+        //url:'https://shop.nainaiwang.com/customer-test',
+        url:'http://192.168.13.119:8081',
+        time: 1516703495241
+      }
+    },
+    filters: {
+      formatDate: function (value) {
+        let date = new Date(value);
+        let y = date.getFullYear();
+        let MM = date.getMonth() + 1;
+        MM = MM < 10 ? ('0' + MM) : MM;
+        let d = date.getDate();
+        d = d < 10 ? ('0' + d) : d;
+        let h = date.getHours();
+        h = h < 10 ? ('0' + h) : h;
+        let m = date.getMinutes();
+        m = m < 10 ? ('0' + m) : m;
+        let s = date.getSeconds();
+        s = s < 10 ? ('0' + s) : s;
+        return y + '-' + MM + '-' + d + ' ' + h + ':' + m + ':' + s;
+      }
+    },
+    created(){
+     
+     //this.pingData()
+    },
+    mounted () {
+      var cKey=Object.keys(this.companyList)
+      for(var i=0;i<cKey.length;i++){
+        for(var n=0;n<this.companyList[cKey[i]].length;n++){
+          //给数组中增加元素count
+          this.$set(this.companyList[cKey[i]][n],"count", this.count);
+        }
+      }
+        console.log("数据",this.companyList)
+    },
+    methods:{
+
+    //显示数量
+    pingData(){
+        var that= this;
+        axios({
+            method: 'get',
+            url:that.url+'/userCompany/usersCompanyslist',
+            params:{}
+        }).then(function(res){
+            console.log("companyList:", res.data.data)
+            if(res.data.data!="{}"){
+        
+                  console.log("数据2:", res.data.data)
+                that.companyList = res.data.data
+                
+            }else{
+                console.log("空")
+            }
+
+            
+        })
+        
+    },
+
+     //加载更多
+     /*原理：改变数组中count的值，count代表显示数量*/
+      more(idx) {
+       console.log("dd",this.companyList[idx].length)
+          if(this.companyList[idx].length > this.count){
+            this.count+=3
+            for(var e=0;e<this.companyList[idx].length;e++){
+               this.companyList[idx][e].count=this.count
+            }
+          }else{
+            for(var e=0;e<this.companyList[idx].length;e++){
+                this.count = this.companyList[idx].length
+            }
+          }
+          console.log("num",this.count )
+      },
+       //收起
+      reduce(rdx){
+        for(var e=0;e<this.companyList[rdx].length;e++){
+          this.companyList[rdx][e].count=3
+        }
+        this.count=3
+      },
+      //收起end
+      //回到顶部
+        toTop() {
+            document.documentElement.scrollTop = document.body.scrollTop = 0;
+        },
+        //同意不同意选择审核结果
+        stateSel(e,fm,idex){
+            var that =this
+            axios({
+                method: 'post',
+                url:that.url+'/userCompany/setUsersCompanys',
+                data:{
+                    id:that.companyList[fm][idex].id,
+                    status:e.target.getAttribute('data-num')
+                }
+            }).then(function(stateInfo){
+              that.companyList[fm][idex].status = e.target.getAttribute('data-num')
+                console.log("成功",stateInfo)
+            }).catch(function (stateInfo) {
+                console.log("错误返回信息",stateInfo)
+            })
+        }
+    }
+})
+</script>
+</html>

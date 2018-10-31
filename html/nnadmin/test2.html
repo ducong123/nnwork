@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="author" content="m.178hui.com" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="format-detection" content="telephone=no">
+  <style type="text/css">
+    body{
+      background: #f4f4f4;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="">
+      <div @click="returnTop">跳转</div>
+      <div v-for="(item,m) in listdatas" v-if="item.values!=''">
+        <div><a :id="item.name">{{item.name}}</a></div>
+        <div>{{item.count}}</div>
+        <div v-for="(v,i) in item.values" v-show="i < item.count">
+          <span>{{v.tel}}</span>
+          <span>{{v.types}}</span>
+        </div>
+        <hr/>
+        <div v-if="item.values.length>3" >
+          <span :index="m" v-if="item.values.length>item.count" @click="more(m)">展开</span>
+          <span :index="m" v-if="item.values.length<item.count" @click="reduce(m)">收起</span>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</body>
+<script src="js/vue.min.js"></script>
+<script src="js/axios.min.js"></script>
+<script>
+//加载更多
+  new Vue({
+    el:'#app',
+    data(){
+      return {
+          listdatas:[
+            {
+              name:"企业1",
+              values:[
+                {tel:"1234",types:"yes"},
+                {tel:"2234",types:"no"},
+                {tel:"3234",types:"yes"},
+                {tel:"4234",types:"no"},
+                {tel:"5234",types:"no"},
+                {tel:"6234",types:"no"},
+                {tel:"7234",types:"no"},
+                {tel:"8234",types:"no"},
+              ],
+            },
+            {name:"企业2",
+               values:[
+                {tel:"2-1234",types:"yes"},
+                {tel:"2-2234",types:"no"},
+                {tel:"2-3234",types:"yes"},
+                {tel:"2-4234",types:"no"},
+                {tel:"2-5234",types:"no"},
+                {tel:"2-6234",types:"no"},
+                {tel:"2-7234",types:"no"},
+                {tel:"2-8234",types:"no"},
+               ],
+            },
+            {
+              name:"企业317",
+              values:[
+                {tel:"3-1234",types:"yes"},
+                {tel:"3-2234",types:"no"},
+                {tel:"3-3234",types:"yes"},        
+              ],
+            },
+            {
+              name:"企业316",
+              values:[
+                {tel:"3-1234",types:"yes"},
+                {tel:"3-2234",types:"no"},
+                {tel:"3-3234",types:"yes"},        
+              ],
+            },
+            {
+              name:"企业315",
+              values:[
+                {tel:"3-1234",types:"yes"},
+                {tel:"3-2234",types:"no"},
+                {tel:"3-3234",types:"yes"},        
+              ],
+            },
+            {
+              name:"企业314",
+              values:[
+                {tel:"3-1234",types:"yes"},
+                {tel:"3-2234",types:"no"},
+                {tel:"3-3234",types:"yes"},        
+              ],
+            },
+            {
+              name:"企业3",
+              values:[
+                {tel:"3-1234",types:"yes"},
+                {tel:"3-2234",types:"no"},
+                {tel:"3-3234",types:"yes"},        
+              ],
+            },
+            {
+              name:"企业313",
+              values:[
+                {tel:"3-1234",types:"yes"},
+                {tel:"3-2234",types:"no"},
+                {tel:"3-3234",types:"yes"},        
+              ],
+            },
+            {
+              name:"企业312",
+              values:[
+                {tel:"3-1234",types:"yes"},
+                {tel:"3-2234",types:"no"},
+                {tel:"3-3234",types:"yes"},        
+              ],
+            },
+            {
+              name:"企业311",
+              values:[
+                {tel:"3-1234",types:"yes"},
+                {tel:"3-2234",types:"no"},
+                {tel:"3-3234",types:"yes"},        
+              ],
+            },
+            {
+              name:"企业310",
+              values:[
+                {tel:"3-1234",types:"yes"},
+                {tel:"3-2234",types:"no"},
+                {tel:"3-3234",types:"yes"},        
+              ],
+            },
+            {
+              name:"企业39",
+              values:[
+                {tel:"3-1234",types:"yes"},
+                {tel:"3-2234",types:"no"},
+                {tel:"3-3234",types:"yes"},        
+              ],
+            },
+            {
+              name:"企业38",
+              values:[
+                {tel:"3-1234",types:"yes"},
+                {tel:"3-2234",types:"no"},
+                {tel:"3-3234",types:"yes"},        
+              ],
+            },
+            {
+              name:"企业37",
+              values:[
+                {tel:"3-1234",types:"yes"},
+                {tel:"3-2234",types:"no"},
+                {tel:"3-3234",types:"yes"},        
+              ],
+            },
+            {
+              name:"企业36",
+              values:[
+                {tel:"3-1234",types:"yes"},
+                {tel:"3-2234",types:"no"},
+                {tel:"3-3234",types:"yes"},        
+              ],
+            },
+            {
+              name:"企业35",
+              values:[
+                {tel:"3-1234",types:"yes"},
+                {tel:"3-2234",types:"no"},
+                {tel:"3-3234",types:"yes"},        
+              ],
+            },
+            {
+              name:"4",
+              values:[
+                {tel:"3-1234",types:"yes"},
+                {tel:"3-2234",types:"no"},
+                {tel:"3-3234",types:"yes"},        
+              ],
+            },
+            {
+              name:"企业33",
+              values:[
+                {tel:"3-1234",types:"yes"},
+                {tel:"3-2234",types:"no"},
+                {tel:"3-3234",types:"yes"},        
+              ],
+            }
+          ],
+           count: 3
+      }
+    },
+    created(){
+     this.companylist()
+     //this.returnTop()
+    },
+    mounted () {
+      this.returnTop()
+  console.log('scroll', this.scrollToTop)
+},
+    methods:{
+      returnTop:function(){
+        
+      document.querySelector("#企业3").scrollIntoView(true);
+      console.log("d")
+    },
+      companylist(){
+      var companylist=[]
+      for(var i=0;i<this.listdatas.length;i++){
+         this.$set(this.listdatas[i],"count", this.count)
+      }
+      console.log("lists:",  this.listdatas)
+     },
+      more(idx) {
+       // this.listdatas[idx].count = this.listdatas[idx].values.length
+       console.log("dd",this.listdatas[idx].values.length,)
+        if(this.listdatas[idx].values.length > this.count){
+          this.count+=3
+          this.listdatas[idx].count= this.count
+        }else{
+          this.listdatas[idx].count = this.listdatas[idx].values.length
+        }
+          console.log("num",idx,this.count,this.listdatas)
+      },
+      reduce(rdx){
+        this.listdatas[rdx].count = 3
+        this.count=3
+      }
+    }
+  })
+</script>
+</html>

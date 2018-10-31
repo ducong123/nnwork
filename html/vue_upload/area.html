@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>三级城市选择</title>
+  <script src="http://www.jq22.com/jquery/vue.min.js"></script>
+ <style type="text/css">
+
+   .cc,.ss{
+    border:1px solid;
+    margin-left: 20px
+   }
+ </style>
+</head>
+<body>
+<div id="app">
+  <div class="arearAll">
+    <input type="type" name="" v-model="inputtext.curArear">
+    <div class="" v-for="(u,i) in areaAll" v-show="provShow">
+      <span @click="citysData(i)">{{i}}:{{u.name}}</span>
+    </div>
+    <div class="cc" v-for="(item,m) in citys" v-show="cityShow">
+      <span @click="districtsData(m)">{{m}}:{{item.name}}</span>
+    </div>
+    <div class="ss" v-for="(item2,n) in districts" v-show="districtShow">
+      <span @click="districtsName(n)">{{n}}{{item2.name}}</span>
+    </div>
+  </div>
+  
+</div>
+
+</div>
+<script src="info.js"></script>
+<script>
+  //  import up from  './src/components/Hello'
+  var app = new Vue({
+    el: '#app',
+    data () {
+      return {
+        areaAll:info,
+        provs:[],//省
+        citys:[],//市
+        districts:[],//区
+        provShow:true,
+        cityShow:false,
+        districtShow:false,
+        inputtext:{}
+      }
+    },
+    created(){
+    },
+    methods: {
+      citysData(id){
+        this.inputtext.curArear =this.areaAll[id].name
+        this.citys = this.areaAll[id].city
+        this.provShow=!this.provShow
+        this.cityShow=!this.cityShow
+        console.log("info:", this.areaAll[id].city)
+      },
+      districtsData(cityId){
+        this.inputtext.curArear+="/"+this.citys[cityId].name
+        this.districts = this.citys[cityId].district
+        this.provShow=false
+        this.cityShow=!this.cityShow
+        this.districtShow=!this.districtShow
+        console.log("infos:",  this.districts)
+      },
+      districtsName(districtsId){
+        this.inputtext.curArear+="/"+this.districts[districtsId].name
+        this.provShow=false
+        this.cityShow=false
+        this.districtShow=false
+      }
+    }
+        
+  })
+</script>
+</body>
+</html>

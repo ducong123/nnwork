@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>测试后台企业增加</title>
+</head>
+<body>
+    <div id="content" class="white">
+    	<h1><img src="/nn2/nnys-admin/views/pc/img/icons/posts.png" alt=""> 新增企业及列表</h1>
+        <div class="bloc">
+            <div class="title">
+                 新增企业
+            </div>
+            <div class="pd-20">
+            	<div class="companyInfo">
+            		<input type="hidden" name="bondImg" value="{url:/userCompany/addCompany@admin}">
+            		<form @submit.prevent="submit">
+            		<div class="companyInput">
+            			<input type="hidden" name="userId" v-model="inputtext.userId" value="">
+            			<span class="infoTitle">企业名称：</span>
+            			<input class="infoText" type="text" name="companyName"  v-model="inputtext.companyName">
+            		</div>
+            		<div class="companyInput">
+            			<span class="infoTitle">企业logo：</span>
+            			<input class="infoText" type="text" placeholder="选一个字做logo"  v-model="inputtext.companyLogo" @change="logoJud()">
+            			<span class="infoTip">(必须为企业名称中的字)</span>
+            		</div>
+            		<div class="companyInput">
+            			<span class="infoTitle">企业等级：</span>
+            			<input class="infoText" type="text"  v-model="inputtext.companyCredit" @change="gradeJud()">
+            			<span class="infoTip">(等级按1-5级划分)</span>
+            		</div>
+            		<div class="companyInput">
+            			<span class="infoTitle">联系人：</span>
+            			<input class="infoText" type="text"  v-model="inputtext.contact">
+            		</div>
+            		<div class="companyInput">
+            			<span class="infoTitle">联系方式：</span>
+            			<input class="infoText" type="text"  v-model="inputtext.contactPhone">
+            		</div>
+            		<div class="companyInput">
+            			<span class="infoTitle"></span>
+            			<input class="infoBtn" type="submit" value="确定提交">
+            		</div>
+            		</form>
+            	</div>
+            </div>
+            <div class="title">
+                 企业列表结果
+            </div>
+           <div class="mt-20 companyTable">
+				<table class="table table-border table-bordered table-hover table-bg table-sort">
+             		<tr class="text-c">
+             			<th>企业名称</th>
+             			<th>联系人</th>
+             			<th>联系方式</th>
+             			<th>企业简称</th>
+             			<th>企业等级</th>
+             		</tr>
+             		<tr >
+             			<td></td>
+             			<td></td>
+             			<td></td>
+             			<td></td>
+             			<td></td>
+             		</tr>
+             	</table>
+             	<div class="pages_bar">
+             		<a v-on:click="curPages(1)">首页</a>
+             		<a v-for="index in allpage" v-bind:class="{ 'current_page': curpage == index}" v-on:click="curPages(index)">{{index}}</a>
+             		<a v-on:click="curPages(allpage)">尾页</a>
+             		<span>当前第{{curpage}}页/共{{allpage}}页</span>
+             	</div>
+            </div>
+        </div>
+    </div>
+<script src="js/vue.min.js"></script>
+<script src="js/axios.min.js"></script>
+<script src = "https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+<script>
+new Vue({
+    el:'#content',
+    data(){
+      return {
+        inputtext:{},//表单内容
+        curpage:1,//当前页码
+        allpage:10,//总页面数
+        url:'http://192.168.13.119:8081'
+
+      }
+    },
+    created(){
+    },
+    methods:{
+        gradeJud(){
+            var companyCredit = this.inputtext.companyCredit//获取等级内容
+            var reg=/^[0-9]+.?[0-9]*$/; //判断字符串是否为数字 ，判断正整数用/^[1-9]+[0-9]*]*$/
+            //判断等级是否输入的是1-5的数字
+            if(!reg.test(companyCredit)||companyCredit>5){
+                alert("请输入1-5的数字")
+            }
+        },
+        logoJud(){
+            var companyName = this.inputtext.companyName
+            var companyLogo = this.inputtext.companyLogo
+             console.log("字符串",companyName.indexOf(companyLogo),companyLogo.length)
+            if(companyName.indexOf(companyLogo) == -1 || companyLogo.length>1){
+                 alert("请输入企业名字中的某一个字")
+            }
+        },
+    	submit: function() {
+			var companyName = this.inputtext.companyName//公司名称
+            var contact = this.inputtext.contact//联系人
+            var contactPhone = this.inputtext.contactPhone//联系电话
+            var companyCredit = this.inputtext.companyCredit //等级
+            var companyLogo = this.inputtext.companyLogo
+            this.companyTip=""
+              console.log("字符串",companyName.indexOf(companyLogo))
+            if(companyName.indexOf(companyLogo) == -1 || companyLogo.length>1){
+                alert("请输入企业名字中的某一个字")
+            }else if(companyName!=undefined&&contact!=undefined&&contactPhone!=undefined&&companyCredit!=undefined&&companyLogo!=undefined){
+                axios({
+                    method: 'post',
+                    url:this.url+'/userCompany/addCompany',
+                    data:this.inputtext,
+                }).then(function(res){
+                    console.log(res.data.message)
+                }).catch(function (res) {
+                    console.log("错误返回信息",res)
+                })
+                this.companyList(1)
+            }else{
+                this.companyTip="以下信息不能为空"
+            }
+            
+		},
+		curPages(pages){
+			this.curpage=pages
+			console.log(pages)
+		}
+	
+	}
+})</script>
+
+</body>
+</html>
