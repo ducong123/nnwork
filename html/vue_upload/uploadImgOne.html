@@ -80,7 +80,7 @@
     data () {
       return {
         inputtext:{},
-        url:"http://192.168.13.119:9081/file/uploadOne",
+        url:"https://shop.nainaiwang.com/customer-test/file/upload",
         companyImg:'',//图片1 地址
         bankImg:'',//图片2 地址
         curImgShow:false,//1更换按钮的显示
@@ -115,7 +115,8 @@
                     }
                   }
                 let formdata = new FormData();
-                formdata.append('file',file);
+                formdata.append('files',file);
+                console.log("dd",formdata)
                 this.uploadImage(formdata,num)//上传图片
               }
           },

@@ -18,6 +18,5 @@ Vue.use(ElementUI)	//element引入
 new Vue({
   el: '#app',
   router,
-  components: { App },
-  template: '<App/>'
+  render: h => h(App)
 })

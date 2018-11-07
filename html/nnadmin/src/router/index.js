@@ -5,9 +5,10 @@ import Login from '../components/Login'
 import AdminGroup from '../components/role/AdminGroup'
 import RoleGroup from  '../components/role/RoleGroup'
 import Welcome from '../components/Welcome'
+import CompanyList from '../components/member/CompanyList'
+import CompanyUserList from '../components/member/CompanyUserList'
 
 Vue.use(Router)
-
 export default new Router({
   routes: [
     {
@@ -33,6 +34,16 @@ export default new Router({
           path: '/roleGroup',
           name: 'roleGroup',
           component: RoleGroup
+        },
+        {
+          path: '/companyList',
+          name: 'companyList',
+          component: CompanyList
+        },
+        {
+          path: '/companyUserList',
+          name: 'companyUserList',
+          component: CompanyUserList
         }
       ]
     }

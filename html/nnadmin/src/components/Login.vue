@@ -33,8 +33,9 @@
     methods:{
       loginData(){
        //this.$router.push({ path: '/home' })
-        let username = this.username;
-        let password = this.password;
+        let that =this
+        let username = that.username;
+        let password = that.password;
         console.log("用户名",username,password)
         this.$http({
           method: 'get',
@@ -44,10 +45,9 @@
             password:password
           }
         }).then(function(res){
-          console.log("reslogin:",res.data.success)
           if(res.data.success != 0){
             console.log("res-",res.data.success)
-            this.$router.push({ path: '/home' });
+            that.$router.replace('/home')
           }else{
             alert(res.data.infor);
           }

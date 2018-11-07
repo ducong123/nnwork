@@ -16,7 +16,6 @@
               <router-link :to="thirdNavlist.path">{{thirdNavlist.thirdName}}</router-link>
             </el-menu-item>
           </el-submenu>
-
         </el-submenu>
       </el-menu>
     </el-col>
@@ -55,22 +54,23 @@
           },
           {
             firstId:"2",
-            firstNav:"导航2",
+            firstNav:"会员管理",
             secondNav:[
               {
                 secondNavId:"2-1",
-                secondName:"二级菜单2",
+                secondName:"企业管理",
                 thirdNav:[
                   {thirdNavId:"2-1-1",
-                    thirdName:"三级菜单2",
-                    path:''
+                    thirdName:"企业列表",
+                    path:'/companyList'
                   },
                   {thirdNavId:"2-1-2",
-                    thirdName:"三级菜单1-1-2",
-                    path:''
+                    thirdName:"加入企业用户列表",
+                    path:'/companyUserList'
                   }
                 ]
               },
+              
             ]
           }
         ],
